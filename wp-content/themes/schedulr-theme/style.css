@@ -165,7 +165,8 @@ nav img {
 }
 
 .page-login,
-.page-create-employee {
+.page-create-employee,
+.page-update-employee {
 	display: flex;
 	justify-content: center;
 }

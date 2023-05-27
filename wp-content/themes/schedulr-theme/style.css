@@ -164,21 +164,22 @@ nav img {
 	padding: 20px 0;
 }
 
-.page-login {
+.page-login,
+.page-create-employee {
 	display: flex;
 	justify-content: center;
 }
-.page-login .inner-form {
+.inner-form {
 	display: flex;
 	flex-direction: column;
 	width: 250px;
 	gap: 15px;
 }
-.page-login h2 {
-	margin: 50px 0 5px;
+.inner-form h2 {
+	margin: 40px 0 5px;
 	text-align: center;
 }
-.page-login p.subtext {
+.inner-form p.subtext {
 	text-align: center;
 	color: rgb(170, 170, 170);
 	margin-bottom: 25px;
@@ -202,7 +203,38 @@ nav img {
 
 .input-con input::placeholder {
 	color: rgb(180, 180, 180);
-	font-weight: 300;
+}
+.radios {
+	margin-top: 4px;
+	position: relative;
+	background: rgb(235, 235, 235);
+	border-radius: 5px;
+	display: flex;
+	padding: 2px;
+	font-weight: 500;
+	color: #4b4b4b;
+}
+.radios input {
+	position: absolute;
+	height: 0;
+	width: 0;
+}
+.radios label {
+	min-width: fit-content;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px;
+	opacity: 0.7;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 14.5px;
+}
+.radios input[type='radio']:checked + label {
+	background: #fff;
+	opacity: 1;
+	color: var(--primaryHover);
 }
 
 .page-home {
@@ -214,8 +246,7 @@ nav img {
 	justify-content: space-between;
 	align-items: center;
 }
-.employees-con .e-list {
-}
+
 .employees-con .e-list > div {
 	border: 1px solid #ddd;
 }

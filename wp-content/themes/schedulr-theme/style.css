@@ -1,14 +1,20 @@
 /*
 Theme Name: Schedulr Theme
-Theme URI: https://example.com/project-manager-pro
-Author: Your Name
-Author URI: https://yourwebsite.com
+Theme URI: https://example.com
+Author: Brian, Joel
+Author URI: https://example.com
 Description: Schedulr-Theme is a powerful and intuitive theme specifically designed for project management systems. With a sleek and modern design, this theme provides a user-friendly interface for managing projects and tasks. Seamlessly integrated with popular project management plugins, it offers a comprehensive solution for organizing, tracking, and optimizing project workflows.
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800&display=swap');
+
+:root {
+	--primary: #0079bf;
+	--primaryHover: #0369a4;
+	--secondary: #ff8138;
+}
 
 *,
 html {
@@ -17,6 +23,53 @@ html {
 	font-family: 'Lexend Deca', system-ui, -apple-system, BlinkMacSystemFont,
 		'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
 		'Helvetica Neue', sans-serif;
+	box-sizing: border-box;
+}
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.error,
+.success {
+	padding: 6px 10px;
+	border-radius: 6px;
+}
+.error {
+	color: rgb(206, 54, 27);
+	background: rgba(255, 99, 71, 0.267);
+	border: 1.5px solid rgba(228, 126, 108, 0.358);
+}
+.success {
+	color: green;
+	background: rgba(0, 128, 0, 0.107);
+	border: 1.5px solid rgba(0, 128, 0, 0.217);
+}
+
+.error:empty,
+.success:empty {
+	display: none;
+}
+
+.custom-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	background: #0079bf;
+	color: #fff;
+	border: none;
+	font-weight: 500;
+	font-size: 16px;
+	padding: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+.custom-btn:hover {
+	background: var(--primaryHover);
+}
+input:focus {
+	outline: none;
 }
 
 .app-body {
@@ -37,10 +90,51 @@ nav {
 	display: flex;
 	align-items: center;
 	padding: 10px 100px;
+	border-bottom: 1.5px solid #0079bf09;
+}
+.nav-loggedin {
+	justify-content: space-between;
+}
+.nav-loggedout {
+	justify-content: center;
 }
 nav img {
 	height: 40px;
 	width: auto;
+}
+.logged-user {
+	position: relative;
+	margin: 0 6px;
+	color: var(--primary);
+	font-size: 15px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	z-index: 1;
+}
+.logged-user ion-icon {
+	margin-right: 5px;
+}
+.logged-user div {
+	display: none;
+	background: #fff;
+	padding: 10px;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 120px;
+	transform: translate(-50%, 100%);
+	border-radius: 5px;
+	border: 1px solid rgba(128, 128, 128, 0.1);
+	box-shadow: 1px 1px 10px rgb(244, 244, 244);
+}
+.logged-user:hover div {
+	display: block;
+}
+.logged-user div button {
+	margin-left: 0;
+	margin-top: 10px;
+	width: 100%;
 }
 
 /**
@@ -50,6 +144,48 @@ nav img {
 */
 .app-container {
 	flex: 1;
+	padding: 20px 0;
+}
+
+.page-login {
+	display: flex;
+	justify-content: center;
+}
+.page-login .inner-form {
+	display: flex;
+	flex-direction: column;
+	width: 250px;
+	gap: 15px;
+}
+.page-login h2 {
+	margin: 50px 0 5px;
+	text-align: center;
+}
+.page-login p.subtext {
+	text-align: center;
+	color: rgb(170, 170, 170);
+	margin-bottom: 25px;
+	font-weight: 300;
+	line-height: 25px;
+}
+.input-con {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+.input-con input {
+	padding: 10px;
+	font-size: 16px;
+	border: 1.5px solid rgb(180, 180, 180);
+	border-radius: 5px;
+}
+.input-con input:focus {
+	border: 1.5px solid var(--primary);
+}
+
+.input-con input::placeholder {
+	color: rgb(180, 180, 180);
+	font-weight: 300;
 }
 
 /**
@@ -65,4 +201,5 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border-top: 1.5px solid #0079bf09;
 }

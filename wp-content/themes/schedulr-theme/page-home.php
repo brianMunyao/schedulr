@@ -18,16 +18,19 @@ get_header();
 
         $employees = [
             [
+                'id' => 1,
                 'fullname' => 'John Smith',
                 'email' => 'john.smith@example.com',
                 'role' => 'Project Manager'
             ],
             [
+                'id' => 2,
                 'fullname' => 'Jane Doe',
                 'email' => 'jane.doe@example.com',
                 'role' => 'Employee'
             ],
             [
+                'id' => 3,
                 'fullname' => 'Michael Johnson',
                 'email' => 'michael.johnson@example.com',
                 'role' => 'Employee'
@@ -63,7 +66,7 @@ get_header();
                         <div class="e-role"><?php echo $employee['role'] ?></div>
 
                         <div class="e-options">
-                            <ion-icon name='create' class="edit"></ion-icon>
+                            <a href="<?php echo site_url('/update-employee?id=' . $employee['id']) ?>"><ion-icon name='create' class="edit"></ion-icon></a>
                             <ion-icon name='trash' class="delete"></ion-icon>
                         </div>
                     </div>

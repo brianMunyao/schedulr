@@ -2,6 +2,20 @@
 
 <?php
 
+if (isset($_POST['create-employee-submit'])) {
+    $fullname = $_POST['fullname'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    $role = $_POST['role'];
+
+
+    // POST REQUEST HERE
+}
+
+?>
+
+<?php
+
 /**
  * 
  * Template Name: Create Employee Template

@@ -17,13 +17,11 @@
 defined('ABSPATH') or die('Hey, hacker! you are the one pwned');
 
 
-
-
-
 class ProjectManager{
 
     public function activate(){
         $this->create_projects_table();
+        $this->create_tasks_table();
     }
 
     public function create_projects_table(){
@@ -32,6 +30,7 @@ class ProjectManager{
         $sql = "CREATE TABLE $table_name (
             p_id mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
             p_name varchar(100) NOT NULL,
+            p_excerpt varchar(100) NOT NULL,
             P_description text NOT NULL,
             p_assigned_to mediumint(9) NOT NULL,
             p_due_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
@@ -44,12 +43,12 @@ class ProjectManager{
     //t_project_id, t_id, t_name, t_done,
     public function create_tasks_table(){
         global $wpdb;
-        $table_name = $wpdb->prefix . 'projects';
+        $table_name = $wpdb->prefix . 'tasks';
         $sql = "CREATE TABLE $table_name (
             t_id mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            t_project_id INTEGER NOT NULL,
             t_name text NOT NULL,
-            t_done integer default 0
+            t_done integer default 0,
+            t_project_id INTEGER NOT NULL
         )";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
@@ -58,3 +57,4 @@ class ProjectManager{
 $project_manager = new ProjectManager();
 
 register_activation_hook(__FILE__, [$project_manager, 'activate']);
+

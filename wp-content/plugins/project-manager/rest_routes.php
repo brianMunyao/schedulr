@@ -14,7 +14,7 @@ class ProjectManagerRestRoutes {
             'methods' => 'POST',
             'callback' => array($this, 'post_projects'),
             'permission_callback' => function() {
-                return current_user_can('edit_others_posts');
+                return current_user_can('manage_options');
             }
         ));
 

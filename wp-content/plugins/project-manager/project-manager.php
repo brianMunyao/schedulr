@@ -16,6 +16,8 @@
 defined('ABSPATH') or die('Hey, hacker! you are the one pwned');
 
 require_once(dirname(__FILE__) . '/rest_routes.php');
+require_once(plugin_dir_path(__FILE__) . 'user_roles.php');
+
 
 class ProjectManager {
 
@@ -58,6 +60,9 @@ class ProjectManager {
 
 $project_manager = new ProjectManager();
 register_activation_hook(__FILE__, [$project_manager, 'activate']);
+
+$user_roles = new UserRoles();
+$user_roles->add_role();
 
 add_action('rest_api_init', 'register_my_routes');
 function register_my_routes() {

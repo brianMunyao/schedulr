@@ -16,6 +16,10 @@ License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 	--primaryHover: #0369a4;
 	--secondary: #ff8138;
 	--secondaryHover: #e66a23;
+	--primaryLight: #0079bf8a;
+	--secondaryLight: #ff81386b;
+	--primaryLightest: #0079bf46;
+	--secondaryLightest: #ff813822;
 }
 
 *,
@@ -266,17 +270,137 @@ nav img {
 }
 
 .page-home,
-.page-project {
+.page-project,
+.page-employees {
 	padding: 10px 100px;
 }
 .section-header {
-	padding: 10px 0;
+	padding: 20px 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	/* background: #fafafa; */
 }
+/* <div class="overview-card">
+<p class="overview-title">Employees Overview</p>
+<p class="overview-total">52</p>
+<div class="overview-percent-con">
+	<div></div>
+	<div></div>
+</div>
 
+<div class="overview-labels">
+	<div>
+		<div class="ol-title">Project Managers</div>
+		<div class="ol-val">9</div>
+	</div>
+	<div>
+		<div class="ol-title">Regular</div>
+		<div class="ol-val">43</div>
+	</div>
+</div>
+</div> */
+
+.overview-card {
+	width: 300px;
+	padding: 20px;
+	border-radius: 20px;
+	background: #fbfbfb;
+	border: 1px solid #e9e9e9;
+}
+.overview-card .overview-title {
+	font-weight: 600;
+	font-size: 17px;
+}
+.overview-card .overview-total {
+	font-size: 30px;
+	font-weight: 700;
+	margin: 10px 0;
+}
+.overview-card .overview-percent-con {
+	display: grid;
+	height: 10px;
+	gap: 6px;
+	margin-bottom: 10px;
+}
+.overview-card .overview-percent-con > div {
+	height: 100%;
+	width: 100%;
+	border-radius: 10px;
+}
+.overview-card .overview-percent-con > div:first-of-type {
+	background: var(--primary);
+}
+.overview-card .overview-percent-con > div:last-of-type {
+	background: var(--secondary);
+}
+.overview-card .overview-labels {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.overview-card .overview-labels > div {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+.overview-card .overview-labels > div:last-of-type {
+	text-align: right;
+}
+.overview-card .overview-labels > div .ol-title {
+	font-size: 15px;
+	opacity: 0.5;
+}
+.overview-card .overview-labels > div .ol-val {
+	font-weight: 600;
+	opacity: 0.8;
+}
+
+.top-cards-con {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-auto-rows: 120px;
+	gap: 20px;
+	margin-bottom: 20px;
+}
+
+.top-cards-con .brief-info-card {
+	background: #f6f6f6;
+	/* background: var(--primaryLightest); */
+	padding: 20px;
+	border-radius: 15px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.top-cards-con .brief-info-card .bi-right {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.top-cards-con .brief-info-card p {
+	font-weight: 500;
+	opacity: 0.5;
+}
+.top-cards-con .brief-info-card span {
+	font-weight: 700;
+	font-size: 20px;
+}
+.icon {
+	background: rgb(227, 227, 227);
+	/* background: var(--primaryLightest); */
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+}
+.icon ion-icon {
+	opacity: 0.5;
+}
 .employees-con .e-list > div {
 	border: 1px solid #ddd;
 }
@@ -308,16 +432,16 @@ nav img {
 	justify-content: center;
 	align-items: center;
 }
-.employees-con .e-options {
+.employees-con .employee-d .e-options {
 	gap: 10px;
 	font-size: 18px;
 }
-.employees-con .e-options > * {
+.employees-con .employee-d .e-options > * {
 	cursor: pointer;
 	transition: all 0.1s linear;
 	padding: 2px;
 }
-.employees-con .e-options > *:hover {
+.employees-con .employee-d .e-options > *:hover {
 	transform: scale(1.21);
 }
 
@@ -429,7 +553,8 @@ footer {
 @media screen and (max-width: 900px) {
 	nav,
 	.page-home,
-	.page-project {
+	.page-project,
+	.page-employees {
 		padding: 10px 50px;
 	}
 }
@@ -437,7 +562,8 @@ footer {
 @media screen and (max-width: 500px) {
 	nav,
 	.page-home,
-	.page-project {
+	.page-project,
+	.page-employees {
 		padding: 10px 20px;
 	}
 }

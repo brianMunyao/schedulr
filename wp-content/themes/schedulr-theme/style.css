@@ -122,6 +122,7 @@ a {
 	background: var(--secondaryHover);
 }
 
+textarea:focus,
 input:focus {
 	outline: none;
 }
@@ -236,7 +237,11 @@ nav img {
 
 .page-login,
 .page-create-employee,
-.page-update-employee {
+.page-update-employee,
+.page-create-project,
+.page-update-project,
+.page-create-task,
+.page-update-task {
 	display: flex;
 	justify-content: center;
 }
@@ -262,16 +267,24 @@ nav img {
 	flex-direction: column;
 	gap: 4px;
 }
-.input-con input {
+.input-con label {
+	font-size: 14px;
+}
+.input-con select,
+.input-con input,
+.input-con textarea {
 	padding: 10px;
 	font-size: 16px;
 	border: 1.5px solid rgb(180, 180, 180);
 	border-radius: 5px;
 }
+.input-con select:focus,
+.input-con textarea:focus,
 .input-con input:focus {
 	border: 1.5px solid var(--primary);
 }
 
+.input-con textarea::placeholder,
 .input-con input::placeholder {
 	color: rgb(180, 180, 180);
 }

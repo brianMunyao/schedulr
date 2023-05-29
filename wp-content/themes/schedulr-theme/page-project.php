@@ -90,7 +90,7 @@ $completed_tasks = array_fill(0, 3, [
                 <p class="project-task-title"><?php echo $task['title'] ?></p>
 
                 <div class="project-tasks-options">
-                    <a href="<?php echo site_url("/projects/project/create-task?id=1") ?>">
+                    <a href="<?php echo site_url("/projects/project/update-task?id=1") ?>">
                         <span class="span-icon color-info"><ion-icon name='create'></ion-icon>Update</span>
                     </a>
                     <form action="" method="post">
@@ -132,7 +132,7 @@ $completed_tasks = array_fill(0, 3, [
                 <p class="project-task-title"><?php echo $task['title'] ?></p>
 
                 <div class="project-tasks-options">
-                    <a href="<?php echo site_url("/projects/project/create-task?id=1") ?>">
+                    <a href="<?php echo site_url("/projects/project/update-task?id=1") ?>">
                         <span class="span-icon color-info"><ion-icon name='create'></ion-icon>Update</span>
                     </a>
                     <form action="" method="post">

@@ -68,7 +68,7 @@ get_header();
     <div class="project-summary-con">
         <div class="section-header">
             <h3>Projects Summary</h3>
-            <a href="<?php echo site_url('/create-project') ?>">View All</a>
+            <a href="<?php echo site_url('/projects') ?>">View All</a>
         </div>
 
         <div class="project-summary-list">
@@ -78,12 +78,7 @@ get_header();
                 <span class="ps-status">Status</span>
                 <span class="ps-assignee">Assignee</span>
                 <span class="ps-detail">Project Detail</span>
-                <span class="ps-progress">
-                    Progress
-                    <!-- <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div> -->
-                </span>
+                <span class="ps-progress">Progress</span>
             </div>
 
             <?php

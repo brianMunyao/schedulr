@@ -519,7 +519,7 @@ nav img {
 	/* font-size: 18px; */
 	color: #7d7d7d;
 	letter-spacing: 0.4px;
-	border: 0.5px solid rgb(231, 231, 231);
+	/* border: 0.5px solid rgb(231, 231, 231); */
 	margin: 15px 0;
 	padding: 10px;
 }
@@ -548,9 +548,25 @@ nav img {
 .project:hover {
 	transform: scale(1.02);
 }
+.project .p-category {
+	font-size: 14px;
+	font-weight: 500;
+	padding: 6px 12px;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	background: var(--secondaryLightest);
+	color: var(--secondaryHover);
+	width: fit-content;
+	border: 0.5px solid var(--secondaryLight);
+}
 .project .p-title {
 	font-weight: 600;
 	font-size: 17px;
+}
+.project .p-tags {
+	margin: 10px 0 25px;
+	color: #797979;
+	font-size: 15px;
 }
 .project .progress-con {
 	display: flex;

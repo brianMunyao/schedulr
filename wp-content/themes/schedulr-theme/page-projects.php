@@ -25,14 +25,19 @@ get_header();
                     'title' => 'Plana - Event Management System',
                     'progress' => '75%',
                     'assigned_to' => 'John D',
-                    'due_date' => 'Jul 23'
+                    'due_date' => 'Jul 23',
+                    'tags' => 'WordPress, plugins',
+                    'category' => 'Web App'
                 ]);
 
                 foreach ($projects as $project) {
                 ?>
                     <a href="<?php echo site_url('/project?id=1') ?>">
                         <div class="project">
+                            <p class="p-category"><?php echo $project['category'] ?></p>
                             <p class="p-title"><?php echo $project['title'] ?></p>
+
+                            <p class="p-tags"><?php echo $project['tags'] ?></p>
 
                             <div class="progress-con">
                                 <div class="progress-top">
@@ -72,18 +77,23 @@ get_header();
 
             <div class="projects-list">
                 <?php
-                $projects = array_fill(0, 3, [
+                $projects = array_fill(0, 2, [
                     'title' => 'Plana - Event Management System',
                     'progress' => '100%',
                     'assigned_to' => 'John D',
-                    'due_date' => 'Jul 23'
+                    'due_date' => 'Jul 23',
+                    'tags' => 'WordPress, plugins',
+                    'category' => 'Web App'
                 ]);
 
                 foreach ($projects as $project) {
                 ?>
                     <a href="<?php echo site_url('/project?id=1') ?>">
                         <div class="project">
+                            <p class="p-category"><?php echo $project['category'] ?></p>
                             <p class="p-title"><?php echo $project['title'] ?></p>
+
+                            <p class="p-tags"><?php echo $project['tags'] ?></p>
 
                             <div class="progress-con">
                                 <div class="progress-top">

@@ -241,11 +241,12 @@ nav img {
 .page-home {
 	padding: 10px 100px;
 }
-.page-home .employees-con .e-header {
+.section-header {
 	padding: 10px 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	/* background: #fafafa; */
 }
 
 .employees-con .e-list > div {
@@ -292,6 +293,91 @@ nav img {
 	transform: scale(1.21);
 }
 
+.projects-section-h {
+	/* font-size: 18px; */
+	color: #7d7d7d;
+	letter-spacing: 0.4px;
+	border: 0.5px solid rgb(231, 231, 231);
+	margin: 15px 0;
+	padding: 10px;
+}
+.projects-section-h.active {
+	color: #28a745;
+}
+.projects-section-h.completed {
+	color: #dc3545;
+}
+
+.projects-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-auto-rows: auto;
+	gap: 25px;
+}
+
+.project {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ddd;
+	padding: 20px;
+	border-radius: 20px;
+}
+.project .p-title {
+	font-weight: 600;
+	font-size: 17px;
+}
+.project .progress-con {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 20px 0;
+}
+.project .progress-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.project .progress-top .pt-left {
+	color: grey;
+	font-size: 14px;
+}
+.project .progress-top .pt-right {
+	color: var(--primary);
+	font-size: 15px;
+	font-weight: 600;
+}
+.project .progress-bottom {
+	height: 7px;
+	background: #ddd;
+	border-radius: 10px;
+}
+.project .progress-bottom .pb-bar {
+	height: 100%;
+	background: var(--primary);
+	border-radius: 10px;
+}
+.project .p-bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.project .p-bottom > div {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 14px;
+	color: rgb(84, 84, 84);
+}
+.project .p-bottom .p-assignee {
+	border: 0.5px solid rgb(224, 224, 224);
+	padding: 4px 8px;
+	border-radius: 30px;
+}
+.project .p-bottom .p-assignee ion-icon {
+	font-size: 16px;
+	opacity: 0.6;
+}
+
 /**
 * footer
 * 
@@ -309,11 +395,15 @@ footer {
 }
 
 @media screen and (max-width: 900px) {
-	nav {
-		padding: 10px 50px;
-	}
-
+	nav,
 	.page-home {
 		padding: 10px 50px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	nav,
+	.page-home {
+		padding: 10px 20px;
 	}
 }

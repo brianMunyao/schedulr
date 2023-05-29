@@ -48,15 +48,17 @@ $completed_tasks = array_fill(0, 3, [
         <h4><?php echo $project['title'] ?></h4>
         <div class="project-options">
             <span><ion-icon name="checkmark-circle-outline"></ion-icon>
-                Mark As Complete</span>
+                <span>Mark As Complete</span></span>
             <a href="<?php echo site_url('/projects/update-project?id=1') ?>">
                 <span class="color-blue"><ion-icon name="create"></ion-icon>
-                    Update</span>
+                    <span>Update</span></span>
             </a>
             <form action="" method="post">
                 <input type="hidden" name="id" value="<?php echo 1 ?>">
-                <span class="color-danger normal-text"><ion-icon name="trash-outline"></ion-icon>
-                    <input type="submit" name="delete-project" value="Delete"></span>
+                <label for="delete-task">
+                    <span class="color-danger normal-text"><ion-icon name="trash-outline"></ion-icon>
+                        <input type="submit" name="delete-project" value="Delete"></span>
+                </label>
             </form>
         </div>
     </div>
@@ -91,13 +93,15 @@ $completed_tasks = array_fill(0, 3, [
 
                 <div class="project-tasks-options">
                     <a href="<?php echo site_url("/projects/project/update-task?id=1") ?>">
-                        <span class="span-icon color-info"><ion-icon name='create'></ion-icon>Update</span>
+                        <span class="span-icon color-info"><ion-icon name='create'></ion-icon><span>Update</span></span>
                     </a>
                     <form action="" method="post">
                         <input type="hidden" name="id" value="<?php echo 1; ?>">
                         <!-- TODO: change this to actual id  -->
-                        <span class="span-icon color-danger normal-text"><ion-icon name='trash'></ion-icon>
-                            <input type="submit" name="delete-task" value="Delete"></span>
+                        <label for="delete-task">
+                            <span class="span-icon color-danger normal-text"><ion-icon name='trash'></ion-icon>
+                                <input type="submit" name="delete-task" value="Delete"></span>
+                        </label>
                     </form>
                 </div>
             </div>
@@ -133,13 +137,15 @@ $completed_tasks = array_fill(0, 3, [
 
                 <div class="project-tasks-options">
                     <a href="<?php echo site_url("/projects/project/update-task?id=1") ?>">
-                        <span class="span-icon color-info"><ion-icon name='create'></ion-icon>Update</span>
+                        <span class="span-icon color-info"><ion-icon name='create'></ion-icon><span>Update</span></span>
                     </a>
                     <form action="" method="post">
                         <input type="hidden" name="id" value="<?php echo 1; ?>">
                         <!-- TODO: change this to actual id  -->
-                        <span class="span-icon color-danger normal-text"><ion-icon name='trash'></ion-icon>
-                            <input type="submit" name="delete-task" value="Delete"></span>
+                        <label for="delete-task">
+                            <span class="span-icon color-danger normal-text"><ion-icon name='trash'></ion-icon>
+                                <input type="submit" id="delete-task" name="delete-task" value="Delete"></span>
+                        </label>
                     </form>
                 </div>
             </div>

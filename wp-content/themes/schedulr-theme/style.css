@@ -179,6 +179,31 @@ nav {
 .nav-links .nav-link.active-tab .bt {
 	background: var(--primary);
 }
+.mob-nav-link {
+	margin: 0 6px;
+	color: grey;
+	font-size: 14.5px;
+	transition: all 0.2s linear;
+	z-index: 2;
+	display: none;
+	align-items: center;
+	gap: 15px;
+	background: #fff;
+	border: 1px solid rgb(236, 236, 236);
+	border-radius: 10px;
+	padding: 10px;
+	width: 150px;
+	flex-direction: column;
+	position: absolute;
+	bottom: 0;
+	transform: translate(-30px, 100%);
+}
+.mob-nav-link > a {
+	color: inherit;
+}
+.mob-nav-link > a:hover {
+	color: var(--primary);
+}
 
 .nav-loggedin {
 	justify-content: space-between;
@@ -190,6 +215,7 @@ nav img {
 	height: 40px;
 	width: auto;
 }
+
 .logged-user {
 	position: relative;
 	margin: 0 6px;
@@ -223,6 +249,32 @@ nav img {
 	margin-left: 0;
 	margin-top: 10px;
 	width: 100%;
+}
+.burger {
+	position: relative;
+	background: rgb(234, 234, 234);
+	border: 1.5px solid rgb(219, 219, 219);
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	cursor: pointer;
+}
+.burger:hover .mob-nav-link {
+	display: flex;
+}
+
+@media screen and (max-width: 640px) {
+	.burger {
+		display: flex;
+	}
+	.nav-links,
+	.logged-user {
+		display: none;
+	}
 }
 
 /**
@@ -476,6 +528,11 @@ nav img {
 }
 .project-summary-list > div .ps-name {
 	flex: 1;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .project-summary-list > div .ps-duedate,
 .project-summary-list > div .ps-status {
@@ -521,6 +578,24 @@ nav img {
 	background: var(--primary);
 	border-radius: 10px;
 	height: 100%;
+}
+
+@media screen and (max-width: 970px) {
+	.project-summary-list > div .ps-status {
+		display: none;
+	}
+}
+@media screen and (max-width: 800px) {
+	.project-summary-list > div .ps-detail {
+		display: none;
+	}
+}
+@media screen and (max-width: 600px) {
+	.project-summary-list > div .ps-progress {
+		display: none;
+	}
+}
+@media screen and (max-width: 500px) {
 }
 
 /**
@@ -706,6 +781,21 @@ nav img {
 	align-items: center;
 	gap: 15px;
 }
+@media screen and (max-width: 700px) {
+	.page-project > .section-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+	.project-tasks-options span {
+		font-size: 19px;
+	}
+	.project-tasks-options span input,
+	.project-tasks-options span span {
+		display: none;
+	}
+}
+
 /**
 * footer
 * 
@@ -726,7 +816,8 @@ footer {
 	nav,
 	.page-home,
 	.page-project,
-	.page-employees {
+	.page-employees,
+	.page-projects {
 		padding: 10px 50px;
 	}
 }
@@ -735,7 +826,8 @@ footer {
 	nav,
 	.page-home,
 	.page-project,
-	.page-employees {
+	.page-employees,
+	.page-project {
 		padding: 10px 20px;
 	}
 }

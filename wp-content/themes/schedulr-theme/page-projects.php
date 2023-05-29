@@ -15,7 +15,7 @@ get_header();
         </div>
 
         <div class="projects-section">
-            <h4 class="projects-section-h active">
+            <h4 class="projects-section-h active  header-bg">
                 Active Projects (3)
             </h4>
 
@@ -71,7 +71,7 @@ get_header();
 
 
         <div class="projects-section">
-            <h4 class="projects-section-h completed">
+            <h4 class="projects-section-h completed  header-bg">
                 Completed Projects (3)
             </h4>
 

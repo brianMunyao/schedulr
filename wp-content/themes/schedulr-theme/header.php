@@ -76,6 +76,40 @@
             <?php
             }
             ?>
+
+            <span class="burger"><ion-icon name="menu"></ion-icon>
+                <div class="mob-nav-link">
+                    <?php
+                    if (is_user_logged_in()) {
+                    ?>
+                        <a href="<?php echo home_url() ?>">Home</a>
+                        <a href="<?php echo site_url('/projects'); ?>">Projects</a>
+                        <?php
+                        if (is_user_in_role(wp_get_current_user(), 'administrator')) {
+                        ?>
+                            <a href="<?php echo site_url('/employees'); ?>">Employees</a>
+                        <?php
+                        }
+                        ?>
+
+                        <span class="logged-user">
+                            <ion-icon name='person-outline'></ion-icon>
+                            <a href="">
+                                <?php
+                                $name = custom_get_user_meta(get_current_user_id());
+                                echo $name != '' ? $name : get_userdata(get_current_user_id())->user_login;
+                                ?>
+                            </a>
+                        </span>
+
+                        <form action="" method="post">
+                            <button class="custom-btn" name="logout" type="submit">Logout</button>
+                        </form>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </span>
         </nav>
 
         <div class="app-container">

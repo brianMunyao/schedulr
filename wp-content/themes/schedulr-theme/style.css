@@ -271,7 +271,8 @@ nav img {
 
 .page-home,
 .page-project,
-.page-employees {
+.page-employees,
+.page-projects {
 	padding: 10px 100px;
 }
 .section-header {
@@ -281,32 +282,15 @@ nav img {
 	align-items: center;
 	/* background: #fafafa; */
 }
-/* <div class="overview-card">
-<p class="overview-title">Employees Overview</p>
-<p class="overview-total">52</p>
-<div class="overview-percent-con">
-	<div></div>
-	<div></div>
-</div>
-
-<div class="overview-labels">
-	<div>
-		<div class="ol-title">Project Managers</div>
-		<div class="ol-val">9</div>
-	</div>
-	<div>
-		<div class="ol-title">Regular</div>
-		<div class="ol-val">43</div>
-	</div>
-</div>
-</div> */
-
 .overview-card {
 	width: 300px;
 	padding: 20px;
 	border-radius: 20px;
 	background: #fbfbfb;
 	border: 1px solid #e9e9e9;
+}
+.top-cards-con .overview-card {
+	width: 100%;
 }
 .overview-card .overview-title {
 	font-weight: 600;
@@ -321,7 +305,7 @@ nav img {
 	display: grid;
 	height: 10px;
 	gap: 6px;
-	margin-bottom: 10px;
+	margin: 20px 0;
 }
 .overview-card .overview-percent-con > div {
 	height: 100%;
@@ -348,7 +332,7 @@ nav img {
 	text-align: right;
 }
 .overview-card .overview-labels > div .ol-title {
-	font-size: 15px;
+	font-size: 14.5px;
 	opacity: 0.5;
 }
 .overview-card .overview-labels > div .ol-val {
@@ -359,7 +343,7 @@ nav img {
 .top-cards-con {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	grid-auto-rows: 120px;
+	grid-auto-rows: auto;
 	gap: 20px;
 	margin-bottom: 20px;
 }
@@ -372,6 +356,7 @@ nav img {
 	display: flex;
 	align-items: center;
 	gap: 20px;
+	height: 120px;
 }
 
 .top-cards-con .brief-info-card .bi-right {
@@ -401,6 +386,91 @@ nav img {
 .icon ion-icon {
 	opacity: 0.5;
 }
+
+/* <div class="project-summary-list">
+<div class="project-summary-h">
+	<span class="ps-name">Project Name</span>
+	<span class="ps-duedate">Due Date</span>
+	<span class="ps-status">Status</span>
+	<span class="ps-assignee">Assignee</span>
+	<span class="ps-detail">Project Detail</span>
+	<span class="ps-progress">
+		<div class="progress">
+			<div class="progress-bar"></div>
+		</div>
+	</span>
+</div>
+</div> */
+
+.project-summary-list {
+	border-radius: 10px;
+}
+.project-summary-list > div {
+	padding: 10px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	border: 0.5px solid rgb(230, 230, 230);
+	font-size: 14.5px;
+	border-radius: 2px;
+}
+.project-summary-list .project-summary-h {
+	background: #f8f8f8;
+	font-weight: 600;
+	opacity: 0.6;
+}
+.project-summary-list > div .ps-name {
+	flex: 1;
+}
+.project-summary-list > div .ps-duedate,
+.project-summary-list > div .ps-status {
+	text-align: center;
+	width: 100px;
+}
+.project-summary-list > div .ps-assignee {
+	text-align: center;
+	min-width: 100px;
+	width: fit-content;
+}
+.project-summary-list > div .ps-detail {
+	width: 160px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+.project-summary-list > div .ps-progress {
+	width: 120px;
+}
+.project-summary-list > div .ps-detail span:first-of-type {
+	font-weight: 500;
+	color: #4b4b4b;
+}
+.project-summary-list > div .ps-detail span:last-of-type {
+	font-size: 13px;
+	color: #818181;
+}
+.project-summary-list > div .ps-status span {
+	background: rgb(235, 235, 235);
+	border-radius: 10px;
+	padding: 3px 6px;
+	font-weight: 500;
+	font-size: 13px;
+}
+.progress {
+	height: 8px;
+	width: 100%;
+	border-radius: 10px;
+	background: #efefef;
+}
+.progress .progress-bar {
+	background: var(--primary);
+	border-radius: 10px;
+	height: 100%;
+}
+
+/**
+* employee
+*/
 .employees-con .e-list > div {
 	border: 1px solid #ddd;
 }

@@ -1,6 +1,5 @@
 <?php if (isset($_POST['logout'])) wp_logout(); ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,33 +27,37 @@
 
             <?php the_custom_logo(); ?>
 
-            <div class="nav-links">
-                <a href="<?php echo home_url(); ?>">
-                    <div class="nav-link <?php echo in_array($slug, $home_routes) ? 'active-tab' : ''; ?>">
-                        <div></div>
-                        Home
-                        <div class='bt'></div>
-                    </div>
-                </a>
-                <a href="<?php echo site_url('/projects'); ?>">
-                    <div class="nav-link <?php echo in_array($slug, $project_routes) ? 'active-tab' : ''; ?>">
-                        <div></div>
-                        Projects
-                        <div class='bt'></div>
-                    </div>
-                </a>
-                <a href="<?php echo site_url('/employees'); ?>">
-                    <div class="nav-link <?php echo in_array($slug, $employee_routes) ? 'active-tab' : ''; ?>">
-                        <div></div>
-                        Employees
-                        <div class='bt'></div>
-                    </div>
-                </a>
-            </div>
-
             <?php
             if (is_user_logged_in()) {
             ?>
+                <div class="nav-links">
+                    <a href="<?php echo home_url(); ?>">
+                        <div class="nav-link <?php echo in_array($slug, $home_routes) ? 'active-tab' : ''; ?>">
+                            <div></div>
+                            Home
+                            <div class='bt'></div>
+                        </div>
+                    </a>
+                    <a href="<?php echo site_url('/projects'); ?>">
+                        <div class="nav-link <?php echo in_array($slug, $project_routes) ? 'active-tab' : ''; ?>">
+                            <div></div>
+                            Projects
+                            <div class='bt'></div>
+                        </div>
+                    </a>
+                    <?php if (is_user_in_role(wp_get_current_user(), 'administrator')) {
+                    ?>
+                        <a href="<?php echo site_url('/employees'); ?>">
+                            <div class="nav-link <?php echo in_array($slug, $employee_routes) ? 'active-tab' : ''; ?>">
+                                <div></div>
+                                Employees
+                                <div class='bt'></div>
+                            </div>
+                        </a>
+                    <?php } ?>
+                </div>
+
+
                 <form action="" method="post">
                     <span class="logged-user">
                         <ion-icon name='person-outline'></ion-icon>

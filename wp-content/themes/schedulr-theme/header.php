@@ -19,7 +19,7 @@
 
     $home_routes = ['schedulr'];
     $employee_routes = ['employees', 'update-employee', 'create-employee'];
-    $project_routes = ['projects', 'project', 'update-project', 'create-project'];
+    $project_routes = ['projects', 'project', 'update-project', 'create-project', 'update-task', 'create-task'];
     ?>
 
     <div class="app-body">

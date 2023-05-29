@@ -20,6 +20,12 @@ License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 	--secondaryLight: #ff81386b;
 	--primaryLightest: #0079bf46;
 	--secondaryLightest: #ff813822;
+
+	--blue: #007bff;
+	--info: #17a2b8;
+	--success: #28a745;
+	--warning: #ffc107;
+	--danger: #dc3545;
 }
 
 *,
@@ -52,9 +58,42 @@ a {
 	border: 1.5px solid rgba(0, 128, 0, 0.217);
 }
 
+.color-info {
+	color: var(--info);
+}
+.color-warning {
+	color: var(--warning);
+}
+.color-danger {
+	color: var(--danger);
+}
+.color-blue {
+	color: var(--blue);
+}
+.color-success {
+	color: var(--success);
+}
+
 .error:empty,
 .success:empty {
 	display: none;
+}
+
+.span-icon {
+	display: flex;
+	align-items: center;
+	font-size: 14.5px;
+	user-select: none;
+}
+.span-icon ion-icon {
+	margin-right: 3px;
+}
+.normal-text input {
+	border: none;
+	background: none;
+	font-size: inherit;
+	color: inherit;
+	cursor: pointer;
 }
 
 .custom-btn {
@@ -272,7 +311,8 @@ nav img {
 .page-home,
 .page-project,
 .page-employees,
-.page-projects {
+.page-projects,
+.page-project {
 	padding: 10px 100px;
 }
 .section-header {
@@ -281,6 +321,23 @@ nav img {
 	justify-content: space-between;
 	align-items: center;
 	/* background: #fafafa; */
+}
+.header-bg {
+	background: #f9f9f9;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.list-border {
+	border: 1px solid #f0f0f0;
+}
+.list-empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.4;
+	background: #efefef36;
+	font-weight: 500;
+	padding: 10px;
 }
 .overview-card {
 	width: 300px;
@@ -386,21 +443,6 @@ nav img {
 .icon ion-icon {
 	opacity: 0.5;
 }
-
-/* <div class="project-summary-list">
-<div class="project-summary-h">
-	<span class="ps-name">Project Name</span>
-	<span class="ps-duedate">Due Date</span>
-	<span class="ps-status">Status</span>
-	<span class="ps-assignee">Assignee</span>
-	<span class="ps-detail">Project Detail</span>
-	<span class="ps-progress">
-		<div class="progress">
-			<div class="progress-bar"></div>
-		</div>
-	</span>
-</div>
-</div> */
 
 .project-summary-list {
 	border-radius: 10px;
@@ -620,6 +662,37 @@ nav img {
 	opacity: 0.6;
 }
 
+.project-options {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	font-size: 14px;
+}
+.project-options span {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+}
+.project-desc {
+	color: rgb(87, 87, 87);
+	line-height: 20px;
+	font-size: 15px;
+	margin-bottom: 25px;
+}
+.project-task {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 15px;
+}
+.project-task p {
+	flex: 1;
+}
+.project-task .project-tasks-options {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
 /**
 * footer
 * 

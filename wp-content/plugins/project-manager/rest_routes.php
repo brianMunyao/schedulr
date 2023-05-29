@@ -12,11 +12,12 @@ class ProjectManagerRestRoutes {
             'methods' => 'GET',
             'callback' => array($this, 'get_projects'),
             'permission_callback' => function() {
+                // return $this->is_user_in_role($request->get_user(), 'ProjectManager');
                 return current_user_can('read');
             }
         ));
 
-        register_rest_route('project-manager/v1', '/project/(?P<id>[\d]+)', array(
+        register_rest_route('project-manager/v1', '/projects/(?P<id>[\d]+)', array(
             'methods' => 'GET',
             'callback' => array($this, 'get_project'),
             'permission_callback' => function() {
@@ -37,6 +38,7 @@ class ProjectManagerRestRoutes {
             'methods' => 'PUT',
             'callback' => array($this, 'update_project'),
             'permission_callback' => function() {
+                // return $this->is_user_in_role($request->get_user(), 'ProjectManager');
                 return current_user_can('manage_options');
             }
         ));
@@ -46,6 +48,7 @@ class ProjectManagerRestRoutes {
             'methods' => 'DELETE',
             'callback' => array($this, 'delete_project'),
             'permission_callback' => function() {
+                // return $this->is_user_in_role($request->get_user(), 'ProjectManager');
                 return current_user_can('manage_options');
             }
         ));
@@ -59,7 +62,7 @@ class ProjectManagerRestRoutes {
         $query = "SELECT * FROM $table_name";
         $projects = $wpdb->get_results($query);
         
-        return $projects[0];
+        return $projects;
     }
 
     //call for the get_project route
@@ -70,7 +73,7 @@ class ProjectManagerRestRoutes {
         $query = "SELECT * FROM $table_name WHERE p_id = $id";
         $projects = $wpdb->get_results($query);
         
-        return $projects;
+        return $projects[0];
     }
 
     //call for the post_projects route
@@ -83,7 +86,7 @@ class ProjectManagerRestRoutes {
             'p_description' => $request['p_description'],
             'p_assigned_to' => $request['p_assigned_to'],
             'p_due_date' => $request['p_due_date'],
-            'p_done' => $request['p_done']
+            'p_done' => (int)$request['p_done']
         ));
         if ($rows == 1) {
             return 'Project created successfully';

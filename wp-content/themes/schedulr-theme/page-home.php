@@ -10,176 +10,108 @@ get_header();
 ?>
 
 <div class="page-home">
-
-    <?php
-    // show admin employees not projects
-    if (is_user_in_role(wp_get_current_user(), 'administrator')) {
-
-        $employees = [
-            [
-                'id' => 1,
-                'fullname' => 'John Smith',
-                'email' => 'john.smith@example.com',
-                'role' => 'Project Manager'
-            ],
-            [
-                'id' => 2,
-                'fullname' => 'Jane Doe',
-                'email' => 'jane.doe@example.com',
-                'role' => 'Employee'
-            ],
-            [
-                'id' => 3,
-                'fullname' => 'Michael Johnson',
-                'email' => 'michael.johnson@example.com',
-                'role' => 'Employee'
-            ]
-        ];
-    ?>
-        <div class="employees-con">
-            <div class="section-header">
-                <h3>Employees</h3>
-                <a href="<?php echo site_url('/create-employee') ?>"> <button class="custom-btn secondary"><ion-icon name='add'></ion-icon>Add Employee</button></a>
+    <div class="top-cards-con">
+        <div class="overview-card">
+            <p class="overview-title">Projects Overview</p>
+            <p class="overview-total">24</p>
+            <div class="overview-percent-con" style="grid-template-columns: 30% 70%;">
+                <div></div>
+                <div></div>
             </div>
-            <div class="e-list">
-                <div class="employee-h">
-                    <div class="e-index">No.</div>
-                    <div class="e-fullname">Fullname</div>
-                    <div class="e-role">Role</div>
 
-                    <div class="e-options">
-                        Options
-                    </div>
+            <div class="overview-labels">
+
+                <div>
+                    <div class="ol-title">Active</div>
+                    <div class="ol-val">10</div>
                 </div>
-                <?php
-                $i = 0;
-                foreach ($employees as $employee) {
-                ?>
-                    <div class="employee-d">
-                        <div class="e-index"><?php echo ++$i; ?>.</div>
-                        <div class="e-fullname"><?php echo $employee['fullname'] ?></div>
-                        <!-- <div class="e-email"><?php // echo $employee['email'] 
-                                                    ?></div> -->
-                        <div class="e-role"><?php echo $employee['role'] ?></div>
-
-                        <div class="e-options">
-                            <a href="<?php echo site_url('/update-employee?id=' . $employee['id']) ?>"><ion-icon name='create' class="edit"></ion-icon></a>
-                            <ion-icon name='trash' class="delete"></ion-icon>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-    <?php
-    } // else 
-    ?>
-
-    <div class="projects-con">
-        <div class="section-header">
-            <h3>Projects</h3>
-            <a href="<?php echo site_url('/create-project') ?>"> <button class="custom-btn secondary"><ion-icon name='add'></ion-icon>Add Project</button></a>
-        </div>
-
-        <div class="projects-section">
-            <h4 class="projects-section-h active">
-                Active Projects (3)
-            </h4>
-
-            <div class="projects-list">
-                <?php
-                $projects = array_fill(0, 4, [
-                    'title' => 'Plana - Event Management System',
-                    'progress' => '75%',
-                    'assigned_to' => 'John D',
-                    'due_date' => 'Jul 23'
-                ]);
-
-                foreach ($projects as $project) {
-                ?>
-                    <div class="project">
-                        <p class="p-title"><?php echo $project['title'] ?></p>
-
-                        <div class="progress-con">
-                            <div class="progress-top">
-                                <span class="pt-left">Project Progress</span>
-                                <span class="pt-right"><?php echo $project['progress'] ?></span>
-                            </div>
-
-                            <div class="progress-bottom">
-                                <div class="pb-bar" style="width:<?php echo $project['progress']; ?>"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-bottom">
-                            <div class="p-assignee">
-                                <ion-icon name='person-circle'></ion-icon>
-                                <?php echo $project['assigned_to']; ?>
-                            </div>
-
-                            <div class="p-duedate">
-                                <ion-icon name='calendar-outline'></ion-icon>
-                                Due: <?php echo $project['due_date']; ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
+                <div>
+                    <div class="ol-title">Completed</div>
+                    <div class="ol-val">14</div>
+                </div>
             </div>
         </div>
 
+        <div class="brief-info-card">
+            <div class="icon">
+                <ion-icon name='people-outline'></ion-icon>
+            </div>
 
-        <div class="projects-section">
-            <h4 class="projects-section-h completed">
-                Completed Projects (3)
-            </h4>
+            <div class="bi-right">
+                <p>Total Employees</p>
+                <span>25</span>
+            </div>
+        </div>
+        <div class="brief-info-card">
+            <div class="icon">
+                <ion-icon name='people-outline'></ion-icon>
+            </div>
 
-            <div class="projects-list">
-                <?php
-                $projects = array_fill(0, 3, [
-                    'title' => 'Plana - Event Management System',
-                    'progress' => '100%',
-                    'assigned_to' => 'John D',
-                    'due_date' => 'Jul 23'
-                ]);
+            <div class="bi-right">
+                <p>Total Employees</p>
+                <span>25</span>
+            </div>
+        </div>
+        <div class="brief-info-card">
+            <div class="icon">
+                <ion-icon name='people-outline'></ion-icon>
+            </div>
 
-                foreach ($projects as $project) {
-                ?>
-                    <div class="project">
-                        <p class="p-title"><?php echo $project['title'] ?></p>
-
-                        <div class="progress-con">
-                            <div class="progress-top">
-                                <span class="pt-left">Project Progress</span>
-                                <span class="pt-right"><?php echo $project['progress'] ?></span>
-                            </div>
-
-                            <div class="progress-bottom">
-                                <div class="pb-bar" style="width:<?php echo $project['progress']; ?>"></div>
-                            </div>
-                        </div>
-
-                        <div class="p-bottom">
-                            <div class="p-assignee">
-                                <ion-icon name='person-circle'></ion-icon>
-                                <?php echo $project['assigned_to']; ?>
-                            </div>
-
-                            <div class="p-duedate">
-                                <ion-icon name='calendar-outline'></ion-icon>
-                                Due: <?php echo $project['due_date']; ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
+            <div class="bi-right">
+                <p>Total Employees</p>
+                <span>25</span>
             </div>
         </div>
     </div>
 
+
+    <div class="project-summary-con">
+        <div class="section-header">
+            <h3>Projects Summary</h3>
+            <a href="<?php echo site_url('/projects') ?>">View All</a>
+        </div>
+
+        <div class="project-summary-list">
+            <div class="project-summary-h">
+                <span class="ps-name">Project Name</span>
+                <span class="ps-duedate">Due Date</span>
+                <span class="ps-status">Status</span>
+                <span class="ps-assignee">Assignee</span>
+                <span class="ps-detail">Project Detail</span>
+                <span class="ps-progress">Progress</span>
+            </div>
+
+            <?php
+            $projects = array_fill(0, 3, [
+                'title' => 'Plana - Event Management System',
+                'progress' => '75%',
+                'assigned_to' => 'John D',
+                'due_date' => 'Jul 23',
+                'status' => 'Pending',
+                'category' => 'Web App',
+                'tags' => 'WordPress, plugins'
+            ]);
+
+            foreach ($projects as $project) {
+            ?>
+                <div class="project-summary-d">
+                    <span class="ps-name"><?php echo $project['title'] ?></span>
+                    <span class="ps-duedate"><?php echo $project['due_date'] ?></span>
+                    <span class="ps-status"><span><?php echo $project['status'] ?></span></span>
+                    <span class="ps-assignee"><?php echo $project['assigned_to'] ?></span>
+                    <div class="ps-detail">
+                        <span><?php echo $project['category'] ?></span>
+                        <span><?php echo $project['tags'] ?></span>
+                    </div>
+                    <span class="ps-progress">
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?php echo $project['progress']  ?>"></div>
+                        </div>
+                    </span>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
 </div>
 
 <?php get_footer() ?>

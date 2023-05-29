@@ -50,7 +50,6 @@ $id = $_GET['id'];
 $found_users = array_filter($employees, function ($empl) {
     return $empl['id'] == $_GET['id'];
 });
-var_dump($found_users);
 
 $user = $found_users[0];
 

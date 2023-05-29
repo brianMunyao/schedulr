@@ -15,10 +15,42 @@
 </head>
 
 <body>
+    <?php
+    $slug = basename(get_permalink());
+
+    $home_routes = ['schedulr'];
+    $employee_routes = ['employees', 'update-employee', 'create-employee'];
+    $project_routes = ['projects', 'update-project', 'create-project'];
+    ?>
+
     <div class="app-body">
         <nav class="<?php echo is_user_logged_in() ? 'nav-loggedin' : 'nav-loggedout' ?>">
 
             <?php the_custom_logo(); ?>
+
+            <div class="nav-links">
+                <a href="<?php echo home_url(); ?>">
+                    <div class="nav-link <?php echo in_array($slug, $home_routes) ? 'active-tab' : ''; ?>">
+                        <div></div>
+                        Home
+                        <div class='bt'></div>
+                    </div>
+                </a>
+                <a href="<?php echo site_url('/projects'); ?>">
+                    <div class="nav-link <?php echo in_array($slug, $project_routes) ? 'active-tab' : ''; ?>">
+                        <div></div>
+                        Projects
+                        <div class='bt'></div>
+                    </div>
+                </a>
+                <a href="<?php echo site_url('/employees'); ?>">
+                    <div class="nav-link <?php echo in_array($slug, $employee_routes) ? 'active-tab' : ''; ?>">
+                        <div></div>
+                        Employees
+                        <div class='bt'></div>
+                    </div>
+                </a>
+            </div>
 
             <?php
             if (is_user_logged_in()) {

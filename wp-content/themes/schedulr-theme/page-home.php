@@ -98,32 +98,34 @@ get_header();
 
                 foreach ($projects as $project) {
                 ?>
-                    <div class="project">
-                        <p class="p-title"><?php echo $project['title'] ?></p>
+                    <a href="<?php echo site_url('/project?id=1') ?>">
+                        <div class="project">
+                            <p class="p-title"><?php echo $project['title'] ?></p>
 
-                        <div class="progress-con">
-                            <div class="progress-top">
-                                <span class="pt-left">Project Progress</span>
-                                <span class="pt-right"><?php echo $project['progress'] ?></span>
+                            <div class="progress-con">
+                                <div class="progress-top">
+                                    <span class="pt-left">Project Progress</span>
+                                    <span class="pt-right"><?php echo $project['progress'] ?></span>
+                                </div>
+
+                                <div class="progress-bottom">
+                                    <div class="pb-bar" style="width:<?php echo $project['progress']; ?>"></div>
+                                </div>
                             </div>
 
-                            <div class="progress-bottom">
-                                <div class="pb-bar" style="width:<?php echo $project['progress']; ?>"></div>
+                            <div class="p-bottom">
+                                <div class="p-assignee">
+                                    <ion-icon name='person-circle'></ion-icon>
+                                    <?php echo $project['assigned_to']; ?>
+                                </div>
+
+                                <div class="p-duedate">
+                                    <ion-icon name='calendar-outline'></ion-icon>
+                                    Due: <?php echo $project['due_date']; ?>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="p-bottom">
-                            <div class="p-assignee">
-                                <ion-icon name='person-circle'></ion-icon>
-                                <?php echo $project['assigned_to']; ?>
-                            </div>
-
-                            <div class="p-duedate">
-                                <ion-icon name='calendar-outline'></ion-icon>
-                                Due: <?php echo $project['due_date']; ?>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 <?php
                 }
                 ?>
@@ -147,32 +149,34 @@ get_header();
 
                 foreach ($projects as $project) {
                 ?>
-                    <div class="project">
-                        <p class="p-title"><?php echo $project['title'] ?></p>
+                    <a href="<?php echo site_url('/project?id=1') ?>">
+                        <div class="project">
+                            <p class="p-title"><?php echo $project['title'] ?></p>
 
-                        <div class="progress-con">
-                            <div class="progress-top">
-                                <span class="pt-left">Project Progress</span>
-                                <span class="pt-right"><?php echo $project['progress'] ?></span>
+                            <div class="progress-con">
+                                <div class="progress-top">
+                                    <span class="pt-left">Project Progress</span>
+                                    <span class="pt-right"><?php echo $project['progress'] ?></span>
+                                </div>
+
+                                <div class="progress-bottom">
+                                    <div class="pb-bar" style="width:<?php echo $project['progress']; ?>"></div>
+                                </div>
                             </div>
 
-                            <div class="progress-bottom">
-                                <div class="pb-bar" style="width:<?php echo $project['progress']; ?>"></div>
+                            <div class="p-bottom">
+                                <div class="p-assignee">
+                                    <ion-icon name='person-circle'></ion-icon>
+                                    <?php echo $project['assigned_to']; ?>
+                                </div>
+
+                                <div class="p-duedate">
+                                    <ion-icon name='calendar-outline'></ion-icon>
+                                    Due: <?php echo $project['due_date']; ?>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="p-bottom">
-                            <div class="p-assignee">
-                                <ion-icon name='person-circle'></ion-icon>
-                                <?php echo $project['assigned_to']; ?>
-                            </div>
-
-                            <div class="p-duedate">
-                                <ion-icon name='calendar-outline'></ion-icon>
-                                Due: <?php echo $project['due_date']; ?>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 <?php
                 }
                 ?>

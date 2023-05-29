@@ -8,7 +8,7 @@ class ProjectManagerRestRoutes {
     }
 
     public function register_routes() {
-        register_rest_route('project-manager/v1', '/projects/', array(
+        register_rest_route('api/v1', '/projects/', array(
             'methods' => 'GET',
             'callback' => array($this, 'get_projects'),
             'permission_callback' => function() {
@@ -17,7 +17,7 @@ class ProjectManagerRestRoutes {
             }
         ));
 
-        register_rest_route('project-manager/v1', '/projects/(?P<id>[\d]+)', array(
+        register_rest_route('api/v1', '/projects/(?P<id>[\d]+)', array(
             'methods' => 'GET',
             'callback' => array($this, 'get_project'),
             'permission_callback' => function() {
@@ -25,7 +25,7 @@ class ProjectManagerRestRoutes {
             }
         ));
 
-        register_rest_route('project-manager/v1', '/projects/', array(
+        register_rest_route('api/v1', '/projects/', array(
             'methods' => 'POST',
             'callback' => array($this, 'post_project'),
             'permission_callback' => function() {
@@ -34,7 +34,7 @@ class ProjectManagerRestRoutes {
         ));
 
         //is it really a put or patch...?hmm
-        register_rest_route('project-manager/v1', '/projects/(?P<id>[\d]+)', array(
+        register_rest_route('api/v1', '/projects/(?P<id>[\d]+)', array(
             'methods' => 'PUT',
             'callback' => array($this, 'update_project'),
             'permission_callback' => function() {
@@ -44,7 +44,7 @@ class ProjectManagerRestRoutes {
         ));
 
         // wait I can delete'cha
-        register_rest_route('project-manager/v1', '/projects/(?P<id>[\d]+)', array(
+        register_rest_route('api/v1', '/projects/(?P<id>[\d]+)', array(
             'methods' => 'DELETE',
             'callback' => array($this, 'delete_project'),
             'permission_callback' => function() {

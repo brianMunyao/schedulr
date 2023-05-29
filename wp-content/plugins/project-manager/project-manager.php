@@ -37,10 +37,12 @@ class ProjectManager {
         $sql = "CREATE TABLE $table_name (
             p_id mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
             p_name varchar(100) NOT NULL,
+            p_category varchar(100) NOT NULL,
             p_excerpt varchar(100) NOT NULL,
             p_description text NOT NULL,
             p_assigned_to mediumint(9) NOT NULL,
-            p_due_date datetime DEFAULT '$current_date' NOT NULL,
+            p_created_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+            p_due_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
             p_done integer default 0
         )";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');

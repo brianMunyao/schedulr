@@ -3,7 +3,7 @@
 
 class TasksRestRoutes{
     public function register_tasks_routes(){
-        register_rest_route('project-manager/v1', '/tasks/', array(
+        register_rest_route('api/v1', '/tasks/', array(
             'methods' => 'GET',
             'callback' => array($this, 'get_tasks'),
             'permission_callback' => function(){
@@ -11,7 +11,7 @@ class TasksRestRoutes{
             }
         ));
 
-        register_rest_route('project-manager/v1', '/tasks/', array(
+        register_rest_route('api/v1', '/tasks/', array(
             'methods' => 'POST',
             'callback' => array($this, 'post_task'),
             'permission_callback' => function(){
@@ -19,9 +19,17 @@ class TasksRestRoutes{
             }
         ));
 
-        register_rest_route('/project-manager/v1', '/tasks/(?P<id>[\d]+)', array(
+        register_rest_route('api/v1', '/tasks/(?P<id>[\d]+)', array(
             'method' => 'PUT',
             'callback' => array($this, 'update_task'),
+            'permission_callback' => function(){
+                return current_user_can('manage_options');
+            }
+        ));
+
+        register_rest_route('api/v1', '/tasks/(?P<id>[\d]+)', array(
+            'method' => 'DELETE',
+            'callback' => array($this, 'delete_task'),
             'permission_callback' => function(){
                 return current_user_can('manage_options');
             }

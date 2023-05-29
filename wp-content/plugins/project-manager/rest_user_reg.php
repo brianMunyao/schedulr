@@ -1,9 +1,8 @@
 <?php
 // Creating administrator only endpoint to create users and givre em roles
-
 class RestUserReg{
     public function register_users_route(){
-        register_rest_route('user-reg/v1', '/users/', array(
+        register_rest_route('api/v1', '/users/', array(
             'methods' => 'GET',
             'callback' => array($this, 'all_users'),
             'permission_callback' => function (){
@@ -11,7 +10,7 @@ class RestUserReg{
             }
         ));
 
-        register_rest_route('user-reg/v1', '/users/(?P<id>[\d]+)', array(
+        register_rest_route('api/v1', '/users/(?P<id>[\d]+)', array(
             'methods' => 'GET',
             'callback'=> array($this, 'single_user'),
             'permission_callback' => function(){
@@ -19,7 +18,7 @@ class RestUserReg{
             }
         ));
 
-        register_rest_route('user-reg/v1', '/user/', array(
+        register_rest_route('api/v1', '/users/', array(
             'methods' => 'POST',
             'callback' => array($this, 'create_user'),
             'permission_callback' => function(){

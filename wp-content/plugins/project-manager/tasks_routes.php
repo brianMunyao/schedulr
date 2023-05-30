@@ -31,7 +31,7 @@ class TasksRestRoutes{
             'methods' => 'POST',
             'callback' => array($this, 'post_task'),
             'permission_callback' => function(){
-                return current_user_can('manage_options');
+                return current_user_can('read');
             }
         ));
 
@@ -39,7 +39,7 @@ class TasksRestRoutes{
             'methods' => 'PUT',
             'callback' => array($this, 'update_task'),
             'permission_callback' => function(){
-                return current_user_can('manage_options');
+                return current_user_can('read');
             }
         ));
 
@@ -47,7 +47,7 @@ class TasksRestRoutes{
             'methods' => 'DELETE',
             'callback' => array($this, 'delete_task'),
             'permission_callback' => function(){
-                return current_user_can('manage_options');
+                return current_user_can('read');
             }
         ));
 
@@ -55,7 +55,7 @@ class TasksRestRoutes{
             'methods' => 'POST',
             'callback' => array($this, 'complete_task'),
             'permission_callback' => function() {
-                return current_user_can('manage_options');
+                return current_user_can('read');
             }
         ));
 

@@ -10,7 +10,7 @@ get_header();
 <?php
 global $form_error;
 
-if (isset($_POST['create-project'])) {
+if (isset($_POST['create_project'])) {
     // $email_username = $_POST['email_username'];
     // $password = $_POST['password'];
 
@@ -24,6 +24,8 @@ if (isset($_POST['create-project'])) {
     // }
 }
 
+$project_id = 1;
+
 $users = [
     [
         'id' => 1,
@@ -33,6 +35,7 @@ $users = [
 ?>
 
 <form action="" method="post">
+    <input type="hidden" name="p_id" value="<?php echo $project_id ?>">
     <div class="page-create-project">
 
         <div class="inner-form">
@@ -40,19 +43,20 @@ $users = [
 
             <p class="error"><?php echo $form_error; ?></p>
 
-            <?php echo do_shortcode("[input_tag name='name' label='Project Name' placeholder='Enter the project name']") ?>
-            <?php echo do_shortcode("[input_tag name='category' label='Project Category' placeholder='e.g. Mobile App, Web App']") ?>
+            <?php echo do_shortcode("[input_tag name='p_name' label='Project Name' placeholder='Enter the project name']") ?>
+            <?php echo do_shortcode("[input_tag name='p_category' label='Project Category' placeholder='e.g. Mobile App, Web App']") ?>
+            <?php echo do_shortcode("[input_tag name='p_excerpt' label='Project Category' placeholder='e.g. Mobile App, Web App']") ?>
 
             <div class="input-con">
-                <label for="desc">Project Description</label>
-                <textarea name="desc" id="desc" placeholder="Briefly explain this project"></textarea>
+                <label for="p_description">Project Description</label>
+                <textarea name="p_description" id="p_description" placeholder="Briefly explain this project"></textarea>
             </div>
 
-            <?php echo do_shortcode("[input_tag name='duedate' input_type='date' label='Project Due Date']") ?>
+            <?php echo do_shortcode("[input_tag name='p_due_date' input_type='date' label='Project Due Date']") ?>
 
             <div class="input-con">
-                <label for="assigned_to">Assign Project To </label>
-                <select name="assigned_to" id="assigned_to">
+                <label for="p_assigned_to">Assign Project To </label>
+                <select name="p_assigned_to" id="p_assigned_to">
                     <option value="" selected disabled hidden>Assign to a employee</option>
                     <?php
                     foreach ($users as $user) {

@@ -67,7 +67,7 @@ global $form_error;
 
             <?php echo do_shortcode("[input_tag value='{$user['fullname']}' name='fullname' label='Fullname' placeholder='Enter their fullname']") ?>
             <?php echo do_shortcode("[input_tag value='{$user['email']}' name='email' label='Email Address' input_type='email' placeholder='Enter their email address']") ?>
-            <?php // echo do_shortcode("[input_tag value='{$user['password']}' name='password' label='Password' input_type='password' placeholder='Enter their password']") 
+            <?php echo do_shortcode("[input_tag value='{$user['password']}' name='password' label='Password' input_type='password' placeholder='Enter their password']")
             ?>
 
             <div class="input-con-radio">

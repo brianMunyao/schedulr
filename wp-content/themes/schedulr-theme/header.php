@@ -1,5 +1,12 @@
 <?php if (isset($_POST['logout'])) wp_logout(); ?>
 
+<?php
+$slug = basename(get_permalink());
+if (!is_user_logged_in() && $slug != 'login') {
+    wp_redirect(site_url('/login'));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

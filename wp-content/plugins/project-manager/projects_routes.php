@@ -130,7 +130,6 @@ class ProjectManagerRestRoutes {
             'p_description' => $request['p_description'],
             'p_assigned_to' => $request['p_assigned_to'],
             'p_due_date' => $request['p_due_date'],
-            'p_done' => $request['p_done']
         ), array('p_id' => $id));
 
         if ($rows === false) {

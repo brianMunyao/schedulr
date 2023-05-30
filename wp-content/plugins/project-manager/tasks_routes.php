@@ -59,6 +59,13 @@ class TasksRestRoutes{
             }
         ));
 
+        register_rest_route('api/v1', '/tasks/(?P<id>[\d]+)/uncomplete', array(
+            'methods' => 'POST',
+            'callback' => array($this, 'uncomplete_task'),
+            'permission_callback' => function() {
+                return current_user_can('read');
+            }
+        ));
     }
     // Call for the get_tasks route
     public function get_tasks($request) {
@@ -145,6 +152,22 @@ class TasksRestRoutes{
             return new WP_Error('task_completion_failed', 'Task completion failed', ['status' => 500]);
         } else {
             return 'Task completed successfully';
+        }
+    }
+
+    public function uncomplete_task($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'tasks';
+        $rows = $wpdb->update($table_name, array(
+            't_done' => 0
+        ), array(
+            't_id' => $request['id']
+        ));
+
+        if ($rows == false) {
+            return new WP_Error('task_uncompletion_failed', 'Task uncompletion failed', ['status' => 500]);
+        } else {
+            return 'Task uncompleted successfully';
         }
     }
 }

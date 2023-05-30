@@ -15,9 +15,9 @@
 
 defined('ABSPATH') or die('Hey, hacker! you are the one pwned');
 
-require_once(dirname(__FILE__) . '/rest_routes.php');
+require_once(dirname(__FILE__) . '/projects_routes.php');
 require_once(dirname(__FILE__) . '/tasks_routes.php');
-require_once(plugin_dir_path(__FILE__) . 'rest_user_reg.php');
+require_once(plugin_dir_path(__FILE__) . 'users_routes.php');
 require_once(plugin_dir_path(__FILE__) . 'user_roles.php');
 
 global $namespace;
@@ -32,7 +32,6 @@ class ProjectManager {
     public function create_projects_table() {
         global $wpdb;
         $table_name = $wpdb->prefix . 'projects';
-        $current_date = current_time('mysql', false);
     
         $sql = "CREATE TABLE $table_name (
             p_id mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -57,6 +56,7 @@ class ProjectManager {
             t_id mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
             t_name text NOT NULL,
             t_done integer default 0,
+            t_due_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
             t_project_id INTEGER NOT NULL
         )";
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');

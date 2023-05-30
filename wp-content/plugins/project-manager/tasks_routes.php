@@ -11,6 +11,14 @@ class TasksRestRoutes{
             }
         ));
 
+        register_rest_route('api/v1', '/tasks/(?P<id>[\d]+)',array(
+            'methods' => 'GET',
+            'callback'=> array($this, 'single_task'),
+            'permission_callback' => function(){
+                return current_user_can('read');
+            }
+        ));
+
         register_rest_route('api/v1', '/tasks/', array(
             'methods' => 'POST',
             'callback' => array($this, 'post_task'),
@@ -20,7 +28,7 @@ class TasksRestRoutes{
         ));
 
         register_rest_route('api/v1', '/tasks/(?P<id>[\d]+)', array(
-            'method' => 'PUT',
+            'methods' => 'PUT',
             'callback' => array($this, 'update_task'),
             'permission_callback' => function(){
                 return current_user_can('manage_options');
@@ -28,35 +36,82 @@ class TasksRestRoutes{
         ));
 
         register_rest_route('api/v1', '/tasks/(?P<id>[\d]+)', array(
-            'method' => 'DELETE',
+            'methods' => 'DELETE',
             'callback' => array($this, 'delete_task'),
             'permission_callback' => function(){
                 return current_user_can('manage_options');
             }
         ));
     }
-
-    public function get_tasks($request){
+    // Call for the get_tasks route
+    public function get_tasks($request) {
         global $wpdb;
         $table_name = $wpdb->prefix . 'tasks';
-        $query = "SELECT * FROM $table_name";
+        $query = "SELECT * FROM $table_name WHERE t_project_id = $request[t_project_id]";
         $tasks = $wpdb->get_results($query);
 
         return $tasks;
     }
 
-    public function post_task($request){
+    // Call for the single_task route
+    public function single_task($request) {
         global $wpdb;
-        $table_name = $wpdb->prefix. 'tasks';
+        $table_name = $wpdb->prefix . 'tasks';
+        $query = "SELECT * FROM $table_name WHERE t_id = $request[id]";
+        $task = $wpdb->get_results($query);
+
+        if (empty($task)) {
+            return new WP_Error('task_not_found', 'Task not found', ['status' => 404]);
+        }
+
+        return $task[0];
+    }
+
+    // Call for the post_task route
+    public function post_task($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'tasks';
         $rows = $wpdb->insert($table_name, array(
             't_name' => $request['t_name'],
-            't_done' => $request['t_done'],
+            // 't_done' => $request['t_done'],
             't_project_id' => $request['t_project_id']
         ));
-        if ($rows == 1){
-            return 'Task created successfully';
+
+        if ($rows === false) {
+            return new WP_Error('task_creation_failed', 'Task creation failed', ['status' => 500]);
         } else {
-            return 'Task creation failed';
+            return 'Task created successfully';
+        }
+    }
+
+    // Call for the update_task route
+    public function update_task($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'tasks';
+        $rows = $wpdb->update($table_name, array(
+            't_name' => $request['t_name'],
+            // 't_project_id' => $request['t_project_id']
+        ), array(
+            't_id' => $request['id']
+        ));
+
+        if ($rows == false) {
+            return new WP_Error('task_update_failed', 'Task update failed', ['status' => 500]);
+        } else {
+            return 'Task updated successfully';
+        }
+    }
+
+    // Call for the delete_task route
+    public function delete_task($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'tasks';
+        $rows = $wpdb->delete($table_name, array('t_id' => $request['id']));
+
+        if ($rows == false) {
+            return new WP_Error('task_deletion_failed', 'Task deletion failed', ['status' => 500]);
+        } else {
+            return 'Task deleted successfully';
         }
     }
 }

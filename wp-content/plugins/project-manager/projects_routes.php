@@ -75,6 +75,14 @@ class ProjectManagerRestRoutes {
             }
         ));
 
+        register_rest_route('api/v1', '/projects/unassigned/', array(
+            'methods' => 'GET',
+            'callback' => array($this, 'get_unassigned_users'),
+            'permission_callback' => function() {
+                return current_user_can('read');
+            }
+        ));
+
     }
     public function get_projects($request) {
         global $wpdb;
@@ -203,4 +211,23 @@ class ProjectManagerRestRoutes {
         }
     }
     
+    public function get_unassigned_users($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'users';
+        $query = "SELECT ID, user_nicename, user_email FROM $table_name WHERE ID NOT IN (SELECT p_assigned_to FROM wp_projects)";
+        $users = $wpdb->get_results($query);
+
+        $modified_users = array_map(function($user){
+            $user->fullname = $user->user_nicename;
+            $user->email = $user->user_email;
+            $user->id = $user->ID;
+            
+            unset($user->user_nicename);
+            unset($user->user_email);
+            unset($user->ID);
+            return $user;
+        }, $users);
+    
+        return $modified_users;
+    }
 }

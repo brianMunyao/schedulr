@@ -63,6 +63,7 @@ class ProjectManager {
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
+     
 }
 
 $project_manager = new ProjectManager();

@@ -175,15 +175,32 @@ class ProjectManagerRestRoutes {
     public function complete_project($request) {
         $id = $request['id'];
         global $wpdb;
-        $table_name = $wpdb->prefix . 'projects';
-        $rows = $wpdb->update($table_name, array(
+        $tasks_table = $wpdb->prefix . 'tasks';
+        $project_table = $wpdb->prefix . 'projects';
+    
+        // Update all tasks associated with the project
+        $rows = $wpdb->update($tasks_table, array(
+            't_done' => 1
+        ), array(
+            't_project_id' => $id
+        ));
+    
+        if ($rows === false) {
+            return 'Task completion failed';
+        }
+    
+        // Update the project as well
+        $rows = $wpdb->update($project_table, array(
             'p_done' => 1
-        ), array('p_id' => $id));
-
+        ), array(
+            'p_id' => $id
+        ));
+    
         if ($rows === false) {
             return 'Project completion failed';
         } else {
             return 'Project completed successfully';
         }
     }
+    
 }

@@ -3,7 +3,15 @@
 
 class TasksRestRoutes{
     public function register_tasks_routes(){
-        register_rest_route('api/v1', '/tasks/', array(
+        // register_rest_route('api/v1', '/tasks/', array(
+        //     'methods' => 'GET',
+        //     'callback' => array($this, 'get_tasks'),
+        //     'permission_callback' => function(){
+        //         return current_user_can('read');
+        //     }
+        // ));
+
+        register_rest_route('api/v1', '/tasks/(?P<t_project_id>[\d]+)', array(
             'methods' => 'GET',
             'callback' => array($this, 'get_tasks'),
             'permission_callback' => function(){
@@ -42,6 +50,15 @@ class TasksRestRoutes{
                 return current_user_can('manage_options');
             }
         ));
+
+        register_rest_route('api/v1', '/tasks/(?P<id>[\d]+)/complete', array(
+            'methods' => 'POST',
+            'callback' => array($this, 'complete_task'),
+            'permission_callback' => function() {
+                return current_user_can('manage_options');
+            }
+        ));
+
     }
     // Call for the get_tasks route
     public function get_tasks($request) {
@@ -112,6 +129,22 @@ class TasksRestRoutes{
             return new WP_Error('task_deletion_failed', 'Task deletion failed', ['status' => 500]);
         } else {
             return 'Task deleted successfully';
+        }
+    }
+
+    public function complete_task($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'tasks';
+        $rows = $wpdb->update($table_name, array(
+            't_done' => 1
+        ), array(
+            't_id' => $request['id']
+        ));
+
+        if ($rows == false) {
+            return new WP_Error('task_completion_failed', 'Task completion failed', ['status' => 500]);
+        } else {
+            return 'Task completed successfully';
         }
     }
 }

@@ -67,6 +67,14 @@ class ProjectManagerRestRoutes {
             }
         ));
 
+        register_rest_route('api/v1', '/projects/(?P<id>[\d]+)/complete', array(
+            'methods' => 'POST',
+            'callback' => array($this, 'complete_project'),
+            'permission_callback' => function() {
+                return current_user_can('read');
+            }
+        ));
+
     }
     public function get_projects($request) {
         global $wpdb;
@@ -163,5 +171,20 @@ class ProjectManagerRestRoutes {
         $projects = $wpdb->get_results($query);
 
         return $projects;
+    }
+
+    public function complete_project($request) {
+        $id = $request['id'];
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'projects';
+        $rows = $wpdb->update($table_name, array(
+            'p_done' => 1
+        ), array('p_id' => $id));
+
+        if ($rows === false) {
+            return 'Project completion failed';
+        } else {
+            return 'Project completed successfully';
+        }
     }
 }

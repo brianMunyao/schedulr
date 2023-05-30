@@ -40,6 +40,7 @@ class ProjectManager {
             p_excerpt varchar(100) NOT NULL,
             p_description text NOT NULL,
             p_assigned_to mediumint(9) NOT NULL,
+            p_created_by mediumint(9) NOT NULL,
             p_created_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
             p_due_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
             p_done integer default 0

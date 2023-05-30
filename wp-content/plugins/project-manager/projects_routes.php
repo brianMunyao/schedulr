@@ -29,7 +29,7 @@ class ProjectManagerRestRoutes {
             'methods' => 'POST',
             'callback' => array($this, 'post_project'),
             'permission_callback' => function() {
-                return current_user_can('manage_options');
+                return current_user_can('read');
             }
         ));
 
@@ -38,7 +38,7 @@ class ProjectManagerRestRoutes {
             'callback' => array($this, 'update_project'),
             'permission_callback' => function() {
                 // return $this->is_user_in_role($request->get_user(), 'ProjectManager');
-                return current_user_can('manage_options');
+                return current_user_can('read');
             }
         ));
 
@@ -47,7 +47,23 @@ class ProjectManagerRestRoutes {
             'callback' => array($this, 'delete_project'),
             'permission_callback' => function() {
                 // return $this->is_user_in_role($request->get_user(), 'ProjectManager');
-                return current_user_can('manage_options');
+                return current_user_can('read');
+            }
+        ));
+
+        register_rest_route('api/v1', '/projects/project_manager/(?P<id>[\d]+)', array(
+            'methods' => 'GET',
+            'callback' => array($this, 'get_project_manager_projects'),
+            'permission_callback' => function() {
+                return current_user_can('read');
+            }
+        ));
+
+        register_rest_route('api/v1', '/projects/assignee/(?P<id>[\d]+)', array(
+            'methods' => 'GET',
+            'callback' => array($this, 'get_assignee_projects'),
+            'permission_callback' => function() {
+                return current_user_can('read');
             }
         ));
 
@@ -81,6 +97,7 @@ class ProjectManagerRestRoutes {
             'p_excerpt' => $request['p_excerpt'],
             'p_description' => $request['p_description'],
             'p_assigned_to' => $request['p_assigned_to'],
+            'p_created_by' => $request['p_created_by'],
             'p_created_date' => current_time('mysql'),
             'p_due_date' => $request['p_due_date'],
             
@@ -127,5 +144,24 @@ class ProjectManagerRestRoutes {
         } else {
             return 'Project deleted successfully';
         }
+    }
+
+    //project manager projects
+    public function get_project_manager_projects($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'projects';
+        $query = "SELECT * FROM $table_name WHERE p_created_by = $request[id]";
+        $projects = $wpdb->get_results($query);
+
+        return $projects;
+    }
+
+    public function get_assignee_projects($request) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'projects';
+        $query = "SELECT * FROM $table_name WHERE p_assigned_to = $request[id]";
+        $projects = $wpdb->get_results($query);
+
+        return $projects;
     }
 }

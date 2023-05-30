@@ -11,7 +11,7 @@ get_header();
 <?php
 global $form_error;
 
-if (isset($_POST['create-task'])) {
+if (isset($_POST['update_task'])) {
 }
 
 ?>
@@ -19,6 +19,8 @@ if (isset($_POST['create-task'])) {
 
 
 <form action="" method="post">
+    <input type="hidden" name="t_id" value="<?php echo 1 ?>">
+
     <div class="page-update-task">
 
         <div class="inner-form">
@@ -28,7 +30,7 @@ if (isset($_POST['create-task'])) {
 
             <?php echo do_shortcode("[input_tag name='t_name' label='Project Task' placeholder='Enter the task name']") ?>
 
-            <button class="custom-btn" type="submit" name="update-task">Update</button>
+            <button class="custom-btn" type="submit" name="update_task">Update</button>
         </div>
     </div>
 </form>

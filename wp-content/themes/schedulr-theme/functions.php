@@ -209,44 +209,6 @@ function get_single_task($id)
     return json_decode($res);
 }
 
-// function create_task($t)
-// {
-//     global $base_api;
-
-//     $data = [
-//         't_name' => $t['t_name'],
-//         't_project_id' => $t['t_project_id'],
-//     ];
-
-//     $res = wp_remote_get($base_api . 'api/v1/tasks/', [
-//         'method' => 'POST',
-//         'body' => $data,
-//         'headers' => ['Authorization' => 'Bearer ' . $GLOBALS['token']]
-//     ]);
-//     $res = wp_remote_retrieve_body($res);
-//     return json_decode($res);
-// }
-
-// function update_task($t)
-// {
-//     global $base_api;
-
-//     $data = [
-//         // 't_id' => $t['t_id'],
-//         't_name' => $t['t_name'],
-//     ];
-
-//     $res = wp_remote_get($base_api . 'api/v1/tasks/' . $t['t_id'], [
-//         'method' => 'PUT',
-//         'body' => $data,
-//         'headers' => ['Authorization' => 'Bearer ' . $GLOBALS['token']]
-//     ]);
-//     $res = wp_remote_retrieve_body($res);
-//     return json_decode($res);
-// }
-
-
-
 function complete_task($id)
 {
     global $base_api;
@@ -396,21 +358,23 @@ function style_date($raw_date)
     return date('M j', strtotime($raw_date));
 }
 
-function secret_login_url() {
+function secret_login_url()
+{
     if (strpos($_SERVER['REQUEST_URI'], 'wp-login.php')) {
-      wp_redirect(home_url('404.php'));
-      exit();
+        wp_redirect(home_url('404.php'));
+        exit();
     }
-  }
+}
 add_action('init', 'secret_login_url');
 
-function restrict_dashboard_access() {
-    if ( ! current_user_can( 'manage_options' ) && is_admin() && ! wp_doing_ajax() ) {
-        wp_redirect( home_url() );
+function restrict_dashboard_access()
+{
+    if (!current_user_can('manage_options') && is_admin() && !wp_doing_ajax()) {
+        wp_redirect(home_url());
         exit;
     }
 }
-add_action( 'admin_init', 'restrict_dashboard_access' );
+add_action('admin_init', 'restrict_dashboard_access');
 
 
 

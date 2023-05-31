@@ -1,0 +1,11 @@
+DELETE http://localhost/schedulr/wp-json/api/v1/users/10
+Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L3NjaGVkdWxyIiwiaWF0IjoxNjg1NDc2ODQ0LCJuYmYiOjE2ODU0NzY4NDQsImV4cCI6MTY4NjA4MTY0NCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.1m0RF86t9mNhgtPCzVRCyJZkHSHuRqRgB4tPjusyOGI"
+
+###
+POST http://localhost/schedulr/wp-json/jwt-auth/v1/token
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password":"admin"
+}

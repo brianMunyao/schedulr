@@ -7,6 +7,21 @@ if (!is_user_logged_in() && $slug != 'login') {
 }
 ?>
 
+<?php
+if (is_user_logged_in()) {
+    if (isset($GLOBALS['token'])) {
+        // echo $GLOBALS['token'];
+    } else {
+        $user = wp_get_current_user();
+        $GLOBALS['token'] = get_token('admin', 'admin');
+        // echo ($user->user_login);
+        // echo ($user->user_pass);
+        // $GLOBALS['token'] = get_token($user->user_login, $user->user_pass);
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,19 +47,23 @@ if (!is_user_logged_in() && $slug != 'login') {
     <div class="app-body">
         <nav class="<?php echo is_user_logged_in() ? 'nav-loggedin' : 'nav-loggedout' ?>">
 
+
             <?php the_custom_logo(); ?>
 
             <?php
             if (is_user_logged_in()) {
             ?>
                 <div class="nav-links">
-                    <a href="<?php echo home_url(); ?>">
-                        <div class="nav-link <?php echo in_array($slug, $home_routes) ? 'active-tab' : ''; ?>">
-                            <div></div>
-                            Home
-                            <div class='bt'></div>
-                        </div>
-                    </a>
+                    <?php if (!is_user_in_role(wp_get_current_user(), 'Employee')) {
+                    ?>
+                        <a href="<?php echo home_url(); ?>">
+                            <div class="nav-link <?php echo in_array($slug, $home_routes) ? 'active-tab' : ''; ?>">
+                                <div></div>
+                                Home
+                                <div class='bt'></div>
+                            </div>
+                        </a>
+                    <?php } ?>
                     <a href="<?php echo site_url('/projects'); ?>">
                         <div class="nav-link <?php echo in_array($slug, $project_routes) ? 'active-tab' : ''; ?>">
                             <div></div>
@@ -84,11 +103,12 @@ if (!is_user_logged_in() && $slug != 'login') {
             }
             ?>
 
-            <span class="burger"><ion-icon name="menu"></ion-icon>
-                <div class="mob-nav-link">
-                    <?php
-                    if (is_user_logged_in()) {
-                    ?>
+            <?php
+            if (is_user_logged_in()) {
+            ?>
+                <span class="burger"><ion-icon name="menu"></ion-icon>
+                    <div class="mob-nav-link">
+
                         <a href="<?php echo home_url() ?>">Home</a>
                         <a href="<?php echo site_url('/projects'); ?>">Projects</a>
                         <?php
@@ -112,11 +132,12 @@ if (!is_user_logged_in() && $slug != 'login') {
                         <form action="" method="post">
                             <button class="custom-btn" name="logout" type="submit">Logout</button>
                         </form>
-                    <?php
-                    }
-                    ?>
-                </div>
-            </span>
+
+                    </div>
+                </span>
+            <?php
+            }
+            ?>
         </nav>
 
         <div class="app-container">

@@ -517,6 +517,7 @@ nav img {
 	height: 60px;
 	display: flex;
 	align-items: center;
+	gap: 5px;
 	border: 0.5px solid rgb(230, 230, 230);
 	font-size: 14.5px;
 	border-radius: 2px;
@@ -541,8 +542,12 @@ nav img {
 }
 .project-summary-list > div .ps-assignee {
 	text-align: center;
-	min-width: 100px;
-	width: fit-content;
+	width: 110px;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .project-summary-list > div .ps-detail {
 	width: 160px;
@@ -607,6 +612,7 @@ nav img {
 .employees-con .employee-h,
 .employees-con .employee-d {
 	padding: 10px;
+	min-height: 48px;
 	display: flex;
 }
 
@@ -631,6 +637,20 @@ nav img {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.remove-btn {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	font-size: initial;
+}
+.employees-con .e-options button {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	font-size: 18px;
 }
 .employees-con .employee-d .e-options {
 	gap: 10px;
@@ -668,6 +688,7 @@ nav img {
 }
 
 .project {
+	max-width: 300px;
 	width: 100%;
 	height: 100%;
 	border: 1px solid #ddd;
@@ -780,6 +801,14 @@ nav img {
 	display: flex;
 	align-items: center;
 	gap: 15px;
+}
+.error-page {
+	min-height: 80vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
 }
 @media screen and (max-width: 700px) {
 	.page-project > .section-header {

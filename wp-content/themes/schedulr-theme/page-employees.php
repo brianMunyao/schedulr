@@ -6,6 +6,8 @@ if (!is_user_in_role(wp_get_current_user(), 'administrator')) wp_redirect(home_u
 
 <?php
 
+require('wp-load.php');
+
 /**
  * 
  * Template Name: Employees Template
@@ -14,35 +16,48 @@ get_header();
 ?>
 
 <?php
+$employees = get_employees();
+$regulars = array_filter($employees, function ($employee) {
+    return  is_user_in_role($employee, 'Employee');
+});
+$projectmanagers = array_filter($employees, function ($employee) {
+    return  is_user_in_role($employee, 'ProjectManager');
+});
 
-$employees = [
-    [
-        'id' => 1,
-        'fullname' => 'John Smith',
-        'email' => 'john.smith@example.com',
-        'role' => 'Project Manager'
-    ],
-    [
-        'id' => 2,
-        'fullname' => 'Jane Doe',
-        'email' => 'jane.doe@example.com',
-        'role' => 'Employee'
-    ],
-    [
-        'id' => 3,
-        'fullname' => 'Michael Johnson',
-        'email' => 'michael.johnson@example.com',
-        'role' => 'Employee'
-    ]
-];
+
+global $form_error;
+global $form_success;
+
+if (isset($_POST['delete-employee'])) {
+    $id = $_POST['delete-id'];
+
+    $res = delete_employee($id);
+
+    if (!is_wp_error($res)) {
+        $form_success = 'Employee Deleted successfully';
+        $employees = get_employees();
+        $regulars = array_filter($employees, function ($employee) {
+            return  is_user_in_role($employee, 'Employee');
+        });
+        $projectmanagers = array_filter($employees, function ($employee) {
+            return  is_user_in_role($employee, 'ProjectManager');
+        });
+    } else {
+        $form_error = "Error deleting employee";
+    }
+}
+
+
 ?>
 
 <div class="page-employees">
+    <p class="error"><?php echo $form_error; ?></p>
+    <p class="success"><?php echo $form_success; ?></p>
 
     <div class="overview-card">
         <p class="overview-title">Employees Overview</p>
-        <p class="overview-total">52</p>
-        <div class="overview-percent-con" style="grid-template-columns: 30% 70%;">
+        <p class="overview-total"><?php echo count($employees) ?></p>
+        <div class="overview-percent-con" style='grid-template-columns: <?php echo calculate_completion_percentage($projectmanagers, $regulars) ?>;'>
             <div></div>
             <div></div>
         </div>
@@ -50,11 +65,11 @@ $employees = [
         <div class="overview-labels">
             <div>
                 <div class="ol-title">Project Managers</div>
-                <div class="ol-val">9</div>
+                <div class="ol-val"><?php echo count($projectmanagers) ?></div>
             </div>
             <div>
                 <div class="ol-title">Regular</div>
-                <div class="ol-val">43</div>
+                <div class="ol-val"><?php echo count($regulars) ?></div>
             </div>
         </div>
     </div>
@@ -78,12 +93,24 @@ $employees = [
             ?>
                 <div class="employee-d">
                     <div class="e-index"><?php echo ++$i; ?>.</div>
-                    <div class="e-fullname"><?php echo $employee['fullname'] ?></div>
-                    <div class="e-role"><?php echo $employee['role'] ?></div>
+                    <div class="e-fullname"><?php echo $employee->fullname ?></div>
+                    <div class="e-role"><?php echo $employee->roles[0] ?></div>
 
                     <div class="e-options">
-                        <a href="<?php echo site_url('/update-employee?id=' . $employee['id']) ?>"><ion-icon name='create' class="edit"></ion-icon></a>
-                        <ion-icon name='trash' class="delete"></ion-icon>
+                        <?php
+                        if (!is_user_in_role($employee, 'administrator')) {
+                        ?>
+                            <a href="<?php echo site_url('/update-employee?id=' . $employee->id) ?>"><ion-icon name='create' class="edit"></ion-icon></a>
+
+                            <form action="" method="post">
+                                <input type="hidden" name="delete-id" value="<?php echo $employee->id ?>">
+                                <button type="submit" name="delete-employee">
+                                    <ion-icon name='trash' class="delete"></ion-icon>
+                                </button>
+                            </form>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             <?php

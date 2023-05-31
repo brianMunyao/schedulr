@@ -2,19 +2,11 @@
 
 <?php
 
-if (isset($_POST['update-employee-submit'])) {
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $role = $_POST['role'];
-
-
-    // PUT REQUEST HERE
-}
-
+require('wp-load.php');
 ?>
 
 <?php
-
+if (!isset($_GET['id'])) wp_redirect(site_url('/employees'));
 /**
  * 
  * Template Name: Update Employee Template
@@ -23,62 +15,64 @@ get_header();
 ?>
 
 <?php
-$employees = [
-    [
-        'id' => 1,
-        'fullname' => 'John Smith',
-        'email' => 'john.smith@example.com',
-        'role' => 'Project Manager'
-    ],
-    [
-        'id' => 2,
-        'fullname' => 'Jane Doe',
-        'email' => 'jane.doe@example.com',
-        'role' => 'Employee'
-    ],
-    [
-        'id' => 3,
-        'fullname' => 'Michael Johnson',
-        'email' => 'michael.johnson@example.com',
-        'role' => 'Employee'
-    ]
-];
-
+global $form_error;
+global $form_success;
 
 $id = $_GET['id'];
 
-$found_users = array_filter($employees, function ($empl) {
-    return $empl['id'] == $_GET['id'];
-});
-
-$user = $found_users[0];
+$employee = get_single_employee($id);
 
 
-global $form_error;
-?>
+if (isset($_POST['update-employee-submit'])) {
 
+    $data = [
+        'id' => $id,
+        'fullname' => $_POST['fullname'],
+        'email' => $_POST['email'],
+        'role' => $_POST['role'],
+        'password' => $_POST['password'],
+    ];
+
+    $res = wp_remote_post('http://localhost/schedulr/wp-json/api/v1/users/' . $id, [
+        'method' => 'PUT',
+        'headers' => ['Authorization' => 'Bearer ' . $GLOBALS['token'], 'Content-Type' => 'application/json'],
+        'body' => json_encode($data),
+        'data_format' => 'body'
+    ]);
+    $res = wp_remote_retrieve_body($res);
+
+
+    if (!is_wp_error($res)) {
+        $form_success = 'Employee updated successfully';
+        $employee = get_single_employee($id);
+    } else {
+        $form_error = json_decode($res);
+    }
+} ?>
 
 <form action="" method="post">
+    <div style="padding: 10px 50px;width:60%; color:dodgerblue" class="span-icon"><ion-icon name='arrow-back'></ion-icon><a href="<?php echo site_url('/employees')  ?>">Back to Employees</a></div>
     <div class="page-update-employee">
         <div class="inner-form">
             <h2>Update Employee Information</h2>
 
             <p class="error"><?php echo $form_error; ?></p>
+            <p class="success"><?php echo $form_success; ?></p>
 
-            <?php echo do_shortcode("[input_tag value='{$user['fullname']}' name='fullname' label='Fullname' placeholder='Enter their fullname']") ?>
-            <?php echo do_shortcode("[input_tag value='{$user['email']}' name='email' label='Email Address' input_type='email' placeholder='Enter their email address']") ?>
-            <?php echo do_shortcode("[input_tag value='{$user['password']}' name='password' label='Password' input_type='password' placeholder='Enter their password']")
+            <?php echo do_shortcode("[input_tag value='{$employee->fullname}' name='fullname' label='Fullname' placeholder='Enter their fullname']") ?>
+            <?php echo do_shortcode("[input_tag value='{$employee->email}' name='email' label='Email Address' input_type='email' placeholder='Enter their email address']") ?>
+            <?php echo do_shortcode("[input_tag name='password' label='Password' input_type='password' placeholder='Enter their password']")
             ?>
 
             <div class="input-con-radio">
                 <label for="">Role</label>
 
                 <div class="radios">
-                    <input type="radio" name="role" id="project-manager" value="Project Manager" <?php echo $user['role'] == 'Project Manager' ? 'checked' : ''; ?> required>
+                    <input type="radio" name="role" id="project-manager" value="Project Manager" <?php echo $employee->roles[0] == 'ProjectManager' ? 'checked' : ''; ?> required>
                     <label for="project-manager">
                         Project Manager
                     </label>
-                    <input type="radio" name="role" id="employee" value="Employee" <?php echo $user['role'] == 'Employee' ? 'checked' : ''; ?> required>
+                    <input type="radio" name="role" id="employee" value="Employee" <?php echo $employee->roles[0] == 'Employee' ? 'checked' : ''; ?> required>
                     <label for="employee">
                         Employee
                     </label>

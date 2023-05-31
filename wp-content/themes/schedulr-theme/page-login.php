@@ -14,6 +14,9 @@ if (isset($_POST['login-submit'])) {
 
     if (is_wp_error($user)) {
         $form_error =  $user->get_error_message();
+    } else {
+        // get_token($email_username, $password);
+        // $GLOBALS['token'] =  get_token($email_username, $password);
     }
 }
 ?>

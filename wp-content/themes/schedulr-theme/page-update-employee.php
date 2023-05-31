@@ -68,7 +68,7 @@ if (isset($_POST['update-employee-submit'])) {
                 <label for="">Role</label>
 
                 <div class="radios">
-                    <input type="radio" name="role" id="project-manager" value="Project Manager" <?php echo $employee->roles[0] == 'ProjectManager' ? 'checked' : ''; ?> required>
+                    <input type="radio" name="role" id="project-manager" value="ProjectManager" <?php echo $employee->roles[0] == 'ProjectManager' ? 'checked' : ''; ?> required>
                     <label for="project-manager">
                         Project Manager
                     </label>

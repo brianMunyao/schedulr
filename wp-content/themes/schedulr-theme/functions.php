@@ -354,47 +354,6 @@ function delete_employee($id)
     return json_decode($res);
 }
 
-// function create_employee($e)
-// {
-//     global $base_api;
-
-//     $data = [
-//         'fullname' => $e['fullname'],
-//         'email' => $e['email'],
-//         'role' => $e['role'],
-//         'password' => $e['password'],
-//     ];
-
-//     $res = wp_remote_get($base_api . 'api/v1/users/', [
-//         'method' => 'POST',
-//         'body' => $data,
-//         'headers' => ['Authorization' => 'Bearer ' . $GLOBALS['token']]
-//     ]);
-//     $res = wp_remote_retrieve_body($res);
-//     return json_decode($res);
-// }
-
-// function update_employee($e)
-// {
-//     global $base_api;
-
-//     $data = [
-//         'fullname' => $e['fullname'],
-//         'email' => $e['email'],
-//         'role' => $e['role'],
-//         'password' => $e['password'],
-//     ];
-
-//     $res = wp_remote_get($base_api . 'api/v1/users/' . $e['e_id'], [
-//         'method' => 'PUT',
-//         'body' => $data,
-//         'headers' => ['Authorization' => 'Bearer ' . $GLOBALS['token']]
-//     ]);
-//     $res = wp_remote_retrieve_body($res);
-//     return json_decode($res);
-// }
-
-
 
 function calculate_completion_percentage($arr1, $arr2)
 {
@@ -437,75 +396,93 @@ function style_date($raw_date)
     return date('M j', strtotime($raw_date));
 }
 
-// global $allowed_attempts;
-// $allowed_attempts = 10; //5;
+function secret_login_url() {
+    if (strpos($_SERVER['REQUEST_URI'], 'wp-login.php')) {
+      wp_redirect(home_url('404.php'));
+      exit();
+    }
+  }
+add_action('init', 'secret_login_url');
 
-// global $time_blocked;
-// $time_blocked = 15; // 3 * 60; // 3 mins (180 seconds) blocked
-
-// global $transient_name;
-// $transient_name = 'attempts';
-
-// global $trials;
-// $trials = 'trials';
-
-
-// function check_attempts($user)
-// {
-//     global $transient_name;
-//     global $trials;
-//     global $allowed_attempts;
-//     global $time_blocked;
-
-//     $transient = get_transient($transient_name);
-
-//     if ($transient) {
-//         $user_trials = $transient[$trials];
-//         if ($transient[$trials] >= $allowed_attempts) {
-//             return new WP_Error('login_error', "Too many attempts. Try again in " . convert_seconds($time_blocked));
-//         }
-//         return new WP_Error('login_error', "Wrong password. " . $allowed_attempts - $user_trials . " trials remaining");
-//     }
-
-//     return $user;
-// }
-
-// add_filter('authenticate', 'check_attempts', 20, 3);
+function restrict_dashboard_access() {
+    if ( ! current_user_can( 'manage_options' ) && is_admin() && ! wp_doing_ajax() ) {
+        wp_redirect( home_url() );
+        exit;
+    }
+}
+add_action( 'admin_init', 'restrict_dashboard_access' );
 
 
-// function login_failure()
-// {
-//     global $allowed_attempts;
-//     global $time_blocked;
-//     global $transient_name;
-//     global $trials;
 
-//     $transient = get_transient($transient_name);
+global $allowed_attempts;
+$allowed_attempts = 3; //5;
+
+global $time_blocked;
+$time_blocked = 2 * 60; // 2 mins (180 seconds) blocked
+
+global $transient_name;
+$transient_name = 'attempts';
+
+global $trials;
+$trials = 'trials';
 
 
-//     if ($transient) {
-//         $transient_data = $transient;
-//         $transient_data[$trials]++;
+function check_attempts($user)
+{
+    global $transient_name;
+    global $trials;
+    global $allowed_attempts;
+    global $time_blocked;
 
-//         if ($transient_data[$trials] <= $allowed_attempts) {
-//             set_transient($transient_name, $transient_data, $time_blocked);
-//         }
-//     } else {
-//         $transient_data = [$trials => 1];
-//         set_transient($transient_name, $transient_data, $time_blocked);
-//     }
-// }
+    $transient = get_transient($transient_name);
+    // var_dump($transient);
+    if ($transient) {
+        $user_trials = $transient[$trials];
+        if ($transient[$trials] >= $allowed_attempts) {
+            return new WP_Error('login_error', "Too many attempts. Try again in " . convert_seconds($time_blocked));
+        }
+        return new WP_Error('login_error', "Wrong password. " . $allowed_attempts - $user_trials . " trials remaining");
+    }
 
-// add_action('wp_login_failed', 'login_failure', 10, 1);
+    return $user;
+}
 
-// function convert_seconds($seconds)
-// {
-//     if ($seconds < 60) {
-//         return $seconds . " seconds";
-//     } else {
-//         $minutes = floor($seconds / 60);
-//         $remaining_seconds = $seconds % 60;
+add_filter('authenticate', 'check_attempts', 20, 3);
 
-//         return $minutes . " minutes " . ($remaining_seconds > 0 ? " and " . $remaining_seconds . " seconds" : "");
-//     }
-// }
+
+function login_failure()
+{
+    global $allowed_attempts;
+    global $time_blocked;
+    global $transient_name;
+    global $trials;
+
+    $transient = get_transient($transient_name);
+
+
+    if ($transient) {
+        $transient_data = $transient;
+        $transient_data[$trials]++;
+
+        if ($transient_data[$trials] <= $allowed_attempts) {
+            set_transient($transient_name, $transient_data, $time_blocked);
+        }
+    } else {
+        $transient_data = [$trials => 1];
+        set_transient($transient_name, $transient_data, $time_blocked);
+    }
+}
+
+add_action('wp_login_failed', 'login_failure', 10, 1);
+
+function convert_seconds($seconds)
+{
+    if ($seconds < 60) {
+        return $seconds . " seconds";
+    } else {
+        $minutes = floor($seconds / 60);
+        $remaining_seconds = $seconds % 60;
+
+        return $minutes . " minutes " . ($remaining_seconds > 0 ? " and " . $remaining_seconds . " seconds" : "");
+    }
+}

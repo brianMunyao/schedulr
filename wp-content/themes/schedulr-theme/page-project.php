@@ -33,7 +33,6 @@ if (isset($_POST['delete-project'])) {
     $res = delete_project($id);
     if (!is_wp_error($res)) {
         $form_success = 'Project deleted successfully';
-        exit(wp_redirect(site_url('/projects')));
     } else {
         $form_error = 'Project not deleted';
     }

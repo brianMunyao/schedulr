@@ -69,6 +69,65 @@ function input_short_code($attrs)
 }
 add_shortcode('input_tag', 'input_short_code');
 
+function login_page_shortcode($attrs)
+{
+
+    global $form_error;
+
+    if (isset($_POST['login-submit'])) {
+        $email_username = $_POST['email_username'];
+        $password = $_POST['password'];
+
+        $user = wp_signon([
+            'user_login' => $email_username,
+            'user_password' => $password
+        ]);
+
+        if (is_wp_error($user)) {
+            $form_error =  $user->get_error_message();
+        } else {
+            // get_token($email_username, $password);
+            // $GLOBALS['token'] =  get_token($email_username, $password);
+        }
+    }
+
+    get_header();
+
+    $output = "";
+
+    $output .= "
+    <form action='' method='post'>
+        <div class='page-login'>
+        
+            <div class='inner-form'>
+                <h2>Welcome Back</h2>
+                <p class='subtext'>Welcome back! Please enter your details </p>
+
+                <p class='error'><?php echo $form_error; ?></p>
+               ";
+
+    $output .= do_shortcode("[input_tag name='email_username' label='Email Address' placeholder='Enter your email address']");
+    $output .= do_shortcode("[input_tag name='password' label='Password' input_type='password' placeholder='Enter your password']");
+
+    $output .= "
+                <button class='custom-btn' type='submit' name='login-submit'>Login</button>
+            </div>
+        </div>
+    </form>    
+    ";
+
+    return $output;
+}
+add_shortcode('login_page', 'login_page_shortcode');
+
+/**
+ * 
+ * 
+ * Routes
+ * 
+ * 
+ */
+
 function get_token($email, $password)
 {
 

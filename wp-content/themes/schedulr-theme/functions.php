@@ -524,7 +524,7 @@ function check_attempts($user, $username, $password)
         return new WP_Error(
             'too_many_tried',
             sprintf(
-                __('<strong>ERROR</strong>: You have reached the authentication limit. Please try again after %1$s.'),
+                __('<strong>ERROR</strong>: Too many attempts. Please try again after %1$s.'),
                 $time
             )
         );

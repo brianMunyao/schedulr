@@ -450,62 +450,116 @@ global $trials;
 $trials = 'trials';
 
 
-function check_attempts($user)
-{
-    global $transient_name;
-    global $trials;
-    global $allowed_attempts;
-    global $time_blocked;
+// function check_attempts($user)
+// {
+//     global $transient_name;
+//     global $trials;
+//     global $allowed_attempts;
+//     global $time_blocked;
 
-    $transient = get_transient($transient_name);
-    // var_dump($transient);
-    if ($transient) {
-        $user_trials = $transient[$trials];
-        if ($transient[$trials] >= $allowed_attempts) {
-            return new WP_Error('login_error', "Too many attempts. Try again in " . convert_seconds($time_blocked));
-        }
-        return new WP_Error('login_error', "Wrong password. " . $allowed_attempts - $user_trials . " trials remaining");
+//     $transient = get_transient($transient_name);
+//     // var_dump($transient);
+//     if ($transient) {
+//         $user_trials = $transient[$trials];
+//         if ($user_trials >= $allowed_attempts) {
+//             // $time_blocked = get_option('_transient_timeout_' . 'attempted_login');
+//             // $time = time_to_go($time_blocked);
+
+//             return new WP_Error('login_error', "Too many attempts. Try again in " . convert_seconds($time_blocked));
+//         }
+//         return new WP('login_error', (string)$user_trials);
+//     }
+
+//     return $user;
+// }
+
+// add_filter('authenticate', 'check_attempts', 30, 3);
+
+
+// function login_failure()
+// {
+//     global $allowed_attempts;
+//     global $time_blocked;
+//     global $transient_name;
+//     global $trials;
+
+//     $transient = get_transient($transient_name);
+
+
+//     if ($transient) {
+//         $transient_data = $transient;
+//         $transient_data[$trials]++;
+
+//         if ($transient_data[$trials] <= $allowed_attempts) {
+//             set_transient($transient_name, $transient_data, $time_blocked);
+//         }
+//     } else {
+//         $transient_data = [$trials => 1];
+//         set_transient($transient_name, $transient_data, $time_blocked);
+//     }
+// }
+
+// add_action('wp_login_failed', 'login_failure', 10, 1);
+
+// function convert_seconds($seconds)
+// {
+//     if ($seconds < 60) {
+//         return $seconds . " seconds";
+//     } else {
+//         $minutes = floor($seconds / 60);
+//         $remaining_seconds = $seconds % 60;
+
+//         return $minutes . " minutes " . ($remaining_seconds > 0 ? " and " . $remaining_seconds . " seconds" : "");
+//     }
+// }
+
+function check_attempts($user, $username, $password)
+{
+    $attempted_login = get_transient('attempted_login');
+
+    if ($attempted_login && $attempted_login['tried'] >= 3) {
+        $until = get_option('_transient_timeout_attempted_login');
+        $time = time_to_go($until);
+
+        return new WP_Error(
+            'too_many_tried',
+            sprintf(
+                __('<strong>ERROR</strong>: You have reached the authentication limit. Please try again after %1$s.'),
+                $time
+            )
+        );
     }
 
     return $user;
 }
+add_filter('authenticate', 'check_attempts', 30, 3);
 
-add_filter('authenticate', 'check_attempts', 20, 3);
-
-
-function login_failure()
+function login_failure($username)
 {
-    global $allowed_attempts;
-    global $time_blocked;
-    global $transient_name;
-    global $trials;
-
-    $transient = get_transient($transient_name);
-
-
-    if ($transient) {
-        $transient_data = $transient;
-        $transient_data[$trials]++;
-
-        if ($transient_data[$trials] <= $allowed_attempts) {
-            set_transient($transient_name, $transient_data, $time_blocked);
-        }
-    } else {
-        $transient_data = [$trials => 1];
-        set_transient($transient_name, $transient_data, $time_blocked);
-    }
+    $attempted_login = get_transient('attempted_login') ?: ['tried' => 0];
+    $attempted_login['tried']++;
+    if ($attempted_login['tried'] <= 3) set_transient('attempted_login', $attempted_login, 60);
 }
 
 add_action('wp_login_failed', 'login_failure', 10, 1);
 
-function convert_seconds($seconds)
+function time_to_go($timestamp)
 {
-    if ($seconds < 60) {
-        return $seconds . " seconds";
-    } else {
-        $minutes = floor($seconds / 60);
-        $remaining_seconds = $seconds % 60;
+    $periods = ["second", "minute", "hour", "day", "week", "month", "year"];
+    $lengths = [60, 60, 24, 7, 4.35, 12];
 
-        return $minutes . " minutes " . ($remaining_seconds > 0 ? " and " . $remaining_seconds . " seconds" : "");
+    $current_timestamp = time();
+    $difference = abs($current_timestamp - $timestamp);
+
+    for ($i = 0; $difference >= $lengths[$i] && $i < count($lengths) - 1; $i++) {
+        $difference /= $lengths[$i];
     }
+
+    $difference = round($difference);
+
+    if (isset($difference) && $difference != 1) {
+        $periods[$i] .= "s";
+    }
+
+    return isset($difference) ? "$difference $periods[$i]" : null;
 }

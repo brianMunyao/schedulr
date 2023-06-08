@@ -99,8 +99,8 @@ if (isset($_POST['uncomplete_task'])) {
             <?php
             if ($project->p_done == 0) {
             ?><form action="" method="post">
-                    <button type="submit" name="complete_project" class="remove-btn" style="font-size: inherit;"><span><ion-icon name="checkmark-circle-outline"></ion-icon>
-                            <span>Mark As Complete</span></span></button>
+                    <button type="submit" name="complete_project" class="remove-btn" style="font-size: inherit;"><span><ion-icon name="checkmark-circle-outline" class="color-success"></ion-icon>
+                            <span class="color-success">Mark As Complete</span></span></button>
                 </form>
             <?php
             } else {
